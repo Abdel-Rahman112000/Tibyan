@@ -38,7 +38,15 @@ interface StatItemProps {
   delay: number;
 }
 
-function StatItem({ icon, value, suffix, label, color, start, delay }: StatItemProps) {
+function StatItem({
+  icon,
+  value,
+  suffix,
+  label,
+  color,
+  start,
+  delay,
+}: StatItemProps) {
   const theme = useTheme();
   const count = useCountUp(value, 2200, start);
 
@@ -95,7 +103,11 @@ function StatItem({ icon, value, suffix, label, color, start, delay }: StatItemP
         </Typography>
         <Typography
           variant="body2"
-          sx={{ color: theme.palette.text.secondary, fontWeight: 500, fontSize: "0.95rem" }}
+          sx={{
+            color: theme.palette.text.secondary,
+            fontWeight: 500,
+            fontSize: "0.95rem",
+          }}
         >
           {label}
         </Typography>
@@ -113,7 +125,7 @@ export default function TrustIndicators() {
   const stats = [
     {
       icon: <PeopleAltIcon />,
-      value: 5000,
+      value: 500,
       suffix: "+",
       label: t("students"),
       color: theme.palette.primary.main,
@@ -134,7 +146,7 @@ export default function TrustIndicators() {
     },
     {
       icon: <AccessTimeIcon />,
-      value: 120000,
+      value: 10,
       suffix: "+",
       label: t("hours"),
       color: "#8b5cf6",
@@ -161,7 +173,11 @@ export default function TrustIndicators() {
           >
             <Typography
               variant="h4"
-              sx={{ fontWeight: 700, mb: 1.5, color: theme.palette.text.primary }}
+              sx={{
+                fontWeight: 700,
+                mb: 1.5,
+                color: theme.palette.text.primary,
+              }}
             >
               {t("title")}
             </Typography>
@@ -185,12 +201,7 @@ export default function TrustIndicators() {
           }}
         >
           {stats.map((stat, i) => (
-            <StatItem
-              key={i}
-              {...stat}
-              start={isInView}
-              delay={i * 0.1}
-            />
+            <StatItem key={i} {...stat} start={isInView} delay={i * 0.1} />
           ))}
         </Box>
       </Container>

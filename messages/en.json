@@ -11,12 +11,12 @@
     "startLearning": "Start Learning"
   },
   "hero": {
-    "badge": "Trusted by 5,000+ Students Worldwide",
+    "badge": "Trusted by 5,00+ Students Worldwide",
     "headline": "Memorize the Quran Online With Expert Teachers",
     "subheadline": "Join thousands of students learning Quran with certified teachers from Al-Azhar and top Islamic institutions. Flexible schedules, personalized attention, and proven results.",
     "ctaPrimary": "Start Learning",
     "ctaSecondary": "Explore Programs",
-    "stat1": "5000+ Students",
+    "stat1": "500+ Students",
     "stat2": "50+ Countries",
     "stat3": "200+ Teachers"
   },
@@ -54,19 +54,37 @@
       "title": "Quran Memorization",
       "subtitle": "Hifz Program",
       "desc": "A structured program to help you memorize the entire Quran with strong retention and proper pronunciation.",
-      "features": ["One-on-one sessions", "Custom memorization plan", "Weekly progress reports", "Tajweed included", "Certificate upon completion"]
+      "features": [
+        "One-on-one sessions",
+        "Custom memorization plan",
+        "Weekly progress reports",
+        "Tajweed included",
+        "Certificate upon completion"
+      ]
     },
     "tajweed": {
       "title": "Tajweed Mastery",
       "subtitle": "Advanced Recitation",
       "desc": "Master the rules of Tajweed and beautify your recitation with certified teachers trained in the major Qira'at.",
-      "features": ["All Tajweed rules covered", "Audio feedback system", "Maqamat basics", "Ijaazah path available", "Beginner to advanced"]
+      "features": [
+        "All Tajweed rules covered",
+        "Audio feedback system",
+        "Maqamat basics",
+        "Ijaazah path available",
+        "Beginner to advanced"
+      ]
     },
     "quranForKids": {
       "title": "Quran for Kids",
       "subtitle": "Children's Program",
       "desc": "Fun and engaging Quran education designed specifically for children aged 5–15 with child-specialized teachers.",
-      "features": ["Child-friendly methods", "Gamified learning", "Parent progress portal", "Interactive sessions", "Ages 5–15"]
+      "features": [
+        "Child-friendly methods",
+        "Gamified learning",
+        "Parent progress portal",
+        "Interactive sessions",
+        "Ages 5–15"
+      ]
     }
   },
   "howItWorks": {
@@ -111,21 +129,42 @@
       "price": "29",
       "desc": "Perfect for getting started",
       "sessions": "4 sessions per month",
-      "features": ["4 live sessions/month", "One certified teacher", "Session recordings", "Progress tracking", "Email support"]
+      "features": [
+        "4 live sessions/month",
+        "One certified teacher",
+        "Session recordings",
+        "Progress tracking",
+        "Email support"
+      ]
     },
     "standard": {
       "name": "Standard",
       "price": "59",
       "desc": "Our most popular plan",
       "sessions": "8 sessions per month",
-      "features": ["8 live sessions/month", "Choose your teacher", "Session recordings", "Progress reports", "Parent portal", "WhatsApp support"]
+      "features": [
+        "8 live sessions/month",
+        "Choose your teacher",
+        "Session recordings",
+        "Progress reports",
+        "Parent portal",
+        "WhatsApp support"
+      ]
     },
     "premium": {
       "name": "Premium",
       "price": "99",
       "desc": "Maximum learning potential",
       "sessions": "Unlimited sessions",
-      "features": ["Unlimited sessions", "Premium teacher selection", "Session recordings", "Detailed analytics", "Parent portal", "24/7 priority support", "Certificate of completion"]
+      "features": [
+        "Unlimited sessions",
+        "Premium teacher selection",
+        "Session recordings",
+        "Detailed analytics",
+        "Parent portal",
+        "24/7 priority support",
+        "Certificate of completion"
+      ]
     }
   },
   "testimonials": {
