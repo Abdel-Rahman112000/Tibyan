@@ -1,0 +1,173 @@
+{
+  "nav": {
+    "home": "Home",
+    "programs": "Programs",
+    "teachers": "Teachers",
+    "pricing": "Pricing",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Login",
+    "startLearning": "Start Learning"
+  },
+  "hero": {
+    "badge": "Trusted by 5,000+ Students Worldwide",
+    "headline": "Memorize the Quran Online With Expert Teachers",
+    "subheadline": "Join thousands of students learning Quran with certified teachers from Al-Azhar and top Islamic institutions. Flexible schedules, personalized attention, and proven results.",
+    "ctaPrimary": "Start Learning",
+    "ctaSecondary": "Explore Programs",
+    "stat1": "5000+ Students",
+    "stat2": "50+ Countries",
+    "stat3": "200+ Teachers"
+  },
+  "trust": {
+    "title": "Trusted by Families Worldwide",
+    "subtitle": "Our numbers speak for themselves",
+    "students": "Active Students",
+    "countries": "Countries Served",
+    "teachers": "Certified Teachers",
+    "hours": "Hours Taught"
+  },
+  "about": {
+    "badge": "About Tibyan",
+    "title": "Built on Faith, Driven by Excellence",
+    "subtitle": "We combine traditional Islamic scholarship with modern technology to deliver an unparalleled Quran learning experience.",
+    "mission": {
+      "title": "Our Mission",
+      "desc": "To make authentic Quran education accessible to every Muslim around the world, regardless of location or background."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "desc": "A world where every Muslim has a meaningful, connected relationship with the Book of Allah through accessible, quality education."
+    },
+    "method": {
+      "title": "Our Method",
+      "desc": "Combining time-tested traditional memorization techniques with modern pedagogical practices for effective and lasting results."
+    }
+  },
+  "programs": {
+    "badge": "Our Programs",
+    "title": "Choose Your Path to Quran Mastery",
+    "subtitle": "Structured programs designed for every level — from beginners to advanced students.",
+    "learnMore": "Learn More",
+    "memorization": {
+      "title": "Quran Memorization",
+      "subtitle": "Hifz Program",
+      "desc": "A structured program to help you memorize the entire Quran with strong retention and proper pronunciation.",
+      "features": ["One-on-one sessions", "Custom memorization plan", "Weekly progress reports", "Tajweed included", "Certificate upon completion"]
+    },
+    "tajweed": {
+      "title": "Tajweed Mastery",
+      "subtitle": "Advanced Recitation",
+      "desc": "Master the rules of Tajweed and beautify your recitation with certified teachers trained in the major Qira'at.",
+      "features": ["All Tajweed rules covered", "Audio feedback system", "Maqamat basics", "Ijaazah path available", "Beginner to advanced"]
+    },
+    "quranForKids": {
+      "title": "Quran for Kids",
+      "subtitle": "Children's Program",
+      "desc": "Fun and engaging Quran education designed specifically for children aged 5–15 with child-specialized teachers.",
+      "features": ["Child-friendly methods", "Gamified learning", "Parent progress portal", "Interactive sessions", "Ages 5–15"]
+    }
+  },
+  "howItWorks": {
+    "badge": "How It Works",
+    "title": "Start Your Journey in 3 Simple Steps",
+    "subtitle": "Getting started is easy. Be learning within minutes.",
+    "step1": {
+      "title": "Register",
+      "desc": "Create your free account in under 2 minutes. No credit card required to get started."
+    },
+    "step2": {
+      "title": "Choose Your Schedule",
+      "desc": "Pick the sessions that fit your life. Morning, evening, weekday or weekend — you decide."
+    },
+    "step3": {
+      "title": "Start Learning",
+      "desc": "Begin your first live session with your certified teacher and start your Quran journey today."
+    }
+  },
+  "videos": {
+    "badge": "Student Recitations",
+    "title": "Hear Our Students Recite",
+    "subtitle": "Real students, real progress. Listen to the beautiful recitations from our global community.",
+    "watchVideo": "Watch Recitation"
+  },
+  "teachers": {
+    "badge": "Our Teachers",
+    "title": "Learn From the Best",
+    "subtitle": "All our teachers are certified from leading Islamic institutions with years of teaching experience.",
+    "experience": "years experience",
+    "viewProfile": "View Profile"
+  },
+  "pricing": {
+    "badge": "Pricing Plans",
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Choose the plan that works for you. Cancel anytime.",
+    "monthly": "monthly",
+    "mostPopular": "Most Popular",
+    "getStarted": "Get Started",
+    "basic": {
+      "name": "Basic",
+      "price": "29",
+      "desc": "Perfect for getting started",
+      "sessions": "4 sessions per month",
+      "features": ["4 live sessions/month", "One certified teacher", "Session recordings", "Progress tracking", "Email support"]
+    },
+    "standard": {
+      "name": "Standard",
+      "price": "59",
+      "desc": "Our most popular plan",
+      "sessions": "8 sessions per month",
+      "features": ["8 live sessions/month", "Choose your teacher", "Session recordings", "Progress reports", "Parent portal", "WhatsApp support"]
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "99",
+      "desc": "Maximum learning potential",
+      "sessions": "Unlimited sessions",
+      "features": ["Unlimited sessions", "Premium teacher selection", "Session recordings", "Detailed analytics", "Parent portal", "24/7 priority support", "Certificate of completion"]
+    }
+  },
+  "testimonials": {
+    "badge": "Testimonials",
+    "title": "What Families Say About Us",
+    "subtitle": "Join thousands of happy students and parents from around the world."
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know before getting started.",
+    "q1": "How do online classes work?",
+    "a1": "Classes are conducted live via video call using our integrated platform. You'll meet your teacher face-to-face and interact in real time, just like an in-person class — from the comfort of your home.",
+    "q2": "Can parents monitor their child's progress?",
+    "a2": "Yes! Our dedicated parent portal gives you full visibility into your child's attendance, recitation progress, teacher notes, and upcoming sessions.",
+    "q3": "What age groups do you teach?",
+    "a3": "We teach students of all ages, from children as young as 5 years old to adults. We have specialized teachers for each age group to ensure the most effective learning experience.",
+    "q4": "How are teachers selected and verified?",
+    "a4": "All our teachers hold certifications from recognized Islamic institutions such as Al-Azhar University. They undergo rigorous background checks and teaching assessments before joining.",
+    "q5": "Can I try a class before subscribing?",
+    "a5": "Absolutely! We offer a free trial session so you can meet your teacher and experience our platform before committing to any plan.",
+    "q6": "What if I need to reschedule a session?",
+    "a6": "You can easily reschedule sessions up to 12 hours in advance through your student dashboard, with no penalty."
+  },
+  "cta": {
+    "badge": "Get Started Today",
+    "title": "Start Your Quran Journey Today",
+    "subtitle": "Join thousands of students who have transformed their relationship with the Quran. Your first session is on us.",
+    "primary": "Start Learning Now",
+    "secondary": "Schedule a Free Trial",
+    "note": "Free trial · No credit card required · Cancel anytime"
+  },
+  "footer": {
+    "tagline": "Authentic Quran education for the modern world.",
+    "quickLinks": "Quick Links",
+    "programs": "Programs",
+    "contact": "Contact Us",
+    "address": "Available Worldwide (Online)",
+    "email": "hello@tibyan.com",
+    "phone": "+1 (800) TIBYAN",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}
