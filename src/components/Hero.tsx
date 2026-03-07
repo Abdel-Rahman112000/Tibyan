@@ -25,7 +25,7 @@ const floatAnimate = {
   transition: {
     duration: 4,
     repeat: Infinity,
-    ease: [0.45, 0, 0.55, 1] as number[],
+    ease: "easeInOut" as const,
   },
 };
 
@@ -34,7 +34,7 @@ const floatAnimate2 = {
   transition: {
     duration: 5,
     repeat: Infinity,
-    ease: [0.45, 0, 0.55, 1] as number[],
+    ease: "easeInOut" as const,
     delay: 1,
   },
 };
