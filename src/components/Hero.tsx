@@ -210,6 +210,7 @@ export default function Hero() {
                 direction={{ xs: "column", sm: "row" }}
                 spacing={2}
                 sx={{ mb: 5 }}
+                gap={2}
               >
                 <Button
                   variant="contained"
@@ -229,7 +230,7 @@ export default function Hero() {
                   variant="outlined"
                   color="primary"
                   size="large"
-                  startIcon={<PlayCircleIcon />}
+                  startIcon={<PlayCircleIcon sx={{ mx: 1 }} />}
                   sx={{
                     px: 4,
                     py: 1.6,

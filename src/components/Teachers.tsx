@@ -18,8 +18,8 @@ import { useTranslations, useLocale } from "next-intl";
 
 const teachers = [
   {
-    name: "Sheikh Ahmad Al-Azhari",
-    nameAr: "الشيخ أحمد الأزهري",
+    name: "Sheikh mohamed gomaa",
+    nameAr: "الشيخ محمد جمعه",
     experience: 12,
     specialization: "Hifz & Tajweed",
     specializationAr: "الحفظ والتجويد",
@@ -30,8 +30,8 @@ const teachers = [
     certifications: ["Al-Azhar", "Ijaazah Hafs"],
   },
   {
-    name: "Ustadha Maryam Khalil",
-    nameAr: "الأستاذة مريم خليل",
+    name: "Sheikh Mohamed Ammar",
+    nameAr: "الشيخ محمد عمار",
     experience: 8,
     specialization: "Quran for Kids",
     specializationAr: "القرآن للأطفال",
@@ -43,7 +43,7 @@ const teachers = [
   },
   {
     name: "Sheikh Yusuf Al-Qari",
-    nameAr: "الشيخ يوسف القاري",
+    nameAr: "الشيخ يوسف عمار",
     experience: 15,
     specialization: "Maqamat & Qira'at",
     specializationAr: "المقامات والقراءات",
@@ -109,7 +109,11 @@ export default function Teachers() {
             />
             <Typography
               variant="h3"
-              sx={{ fontWeight: 800, mb: 2, fontSize: { xs: "1.9rem", md: "2.5rem" } }}
+              sx={{
+                fontWeight: 800,
+                mb: 2,
+                fontSize: { xs: "1.9rem", md: "2.5rem" },
+              }}
             >
               {t("title")}
             </Typography>
@@ -131,7 +135,11 @@ export default function Teachers() {
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(4, 1fr)" },
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "1fr 1fr",
+              lg: "repeat(4, 1fr)",
+            },
             gap: 3,
           }}
         >
@@ -183,19 +191,42 @@ export default function Teachers() {
                     {teacher.letter}
                   </Avatar>
 
-                  <Typography variant="subtitle1" fontWeight={700} sx={{ lineHeight: 1.3, mb: 0.3 }}>
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight={700}
+                    sx={{ lineHeight: 1.3, mb: 0.3 }}
+                  >
                     {isRtl ? teacher.nameAr : teacher.name}
                   </Typography>
 
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 0.5,
+                      mb: 1,
+                    }}
+                  >
                     <VerifiedIcon sx={{ fontSize: 14, color: teacher.color }} />
-                    <Typography variant="caption" sx={{ color: teacher.color, fontWeight: 600 }}>
-                      {isRtl ? teacher.specializationAr : teacher.specialization}
+                    <Typography
+                      variant="caption"
+                      sx={{ color: teacher.color, fontWeight: 600 }}
+                    >
+                      {isRtl
+                        ? teacher.specializationAr
+                        : teacher.specialization}
                     </Typography>
                   </Box>
 
                   {/* Rating */}
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 2 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 0.5,
+                      mb: 2,
+                    }}
+                  >
                     <Box sx={{ display: "flex", gap: 0.1 }}>
                       {[...Array(5)].map((_, si) => (
                         <StarIcon
@@ -210,10 +241,17 @@ export default function Teachers() {
                         />
                       ))}
                     </Box>
-                    <Typography variant="caption" fontWeight={700} sx={{ color: theme.palette.text.primary }}>
+                    <Typography
+                      variant="caption"
+                      fontWeight={700}
+                      sx={{ color: theme.palette.text.primary }}
+                    >
                       {teacher.rating}
                     </Typography>
-                    <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
+                    <Typography
+                      variant="caption"
+                      sx={{ color: theme.palette.text.secondary }}
+                    >
                       · {teacher.students} students
                     </Typography>
                   </Box>
@@ -233,10 +271,17 @@ export default function Teachers() {
                     }}
                   >
                     <Box sx={{ flex: 1, textAlign: "center" }}>
-                      <Typography variant="subtitle2" fontWeight={800} sx={{ color: teacher.color }}>
+                      <Typography
+                        variant="subtitle2"
+                        fontWeight={800}
+                        sx={{ color: teacher.color }}
+                      >
                         {teacher.experience}
                       </Typography>
-                      <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: theme.palette.text.secondary }}
+                      >
                         {t("experience")}
                       </Typography>
                     </Box>
@@ -247,17 +292,31 @@ export default function Teachers() {
                       }}
                     />
                     <Box sx={{ flex: 1, textAlign: "center" }}>
-                      <Typography variant="subtitle2" fontWeight={800} sx={{ color: teacher.color }}>
+                      <Typography
+                        variant="subtitle2"
+                        fontWeight={800}
+                        sx={{ color: teacher.color }}
+                      >
                         {teacher.students}+
                       </Typography>
-                      <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: theme.palette.text.secondary }}
+                      >
                         Students
                       </Typography>
                     </Box>
                   </Box>
 
                   {/* Certifications */}
-                  <Box sx={{ display: "flex", gap: 0.8, flexWrap: "wrap", mb: 2.5 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 0.8,
+                      flexWrap: "wrap",
+                      mb: 2.5,
+                    }}
+                  >
                     {teacher.certifications.map((cert, ci) => (
                       <Chip
                         key={ci}
@@ -280,7 +339,10 @@ export default function Teachers() {
                     fullWidth
                     endIcon={
                       <ArrowForwardIcon
-                        sx={{ fontSize: "16px !important", transform: isRtl ? "rotate(180deg)" : "none" }}
+                        sx={{
+                          fontSize: "16px !important",
+                          transform: isRtl ? "rotate(180deg)" : "none",
+                        }}
                       />
                     }
                     size="small"

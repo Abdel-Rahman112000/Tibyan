@@ -15,14 +15,13 @@ import {
   ListItemButton,
   ListItemText,
   Divider,
-  Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LanguageIcon from "@mui/icons-material/Language";
-import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import Image from "next/image";
 import { useTheme } from "@mui/material/styles";
 import { useTheme as useNextTheme } from "next-themes";
 import { useTranslations, useLocale } from "next-intl";
@@ -111,38 +110,21 @@ export default function Navbar() {
               initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              style={{ display: "flex", alignItems: "center", gap: 8 }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick={() => scrollToSection("#home")}
             >
-              <Box
-                sx={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: "10px",
-                  background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                }}
-                onClick={() => scrollToSection("#home")}
-              >
-                <AutoStoriesIcon sx={{ color: "#fff", fontSize: 20 }} />
-              </Box>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: 800,
-                  cursor: "pointer",
-                  background: `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.primary.main})`,
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  letterSpacing: "-0.01em",
-                }}
-                onClick={() => scrollToSection("#home")}
-              >
-                Tibyan | تبيان
-              </Typography>
+              <Image
+                src="/images/tibyan.png"
+                alt="Tibyan Logo"
+                width={200}
+                height={80}
+                style={{ objectFit: "contain" }}
+                priority
+              />
             </motion.div>
 
             <Box sx={{ flexGrow: 1 }} />
@@ -289,23 +271,14 @@ export default function Navbar() {
             mb: 2,
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Box
-              sx={{
-                width: 32,
-                height: 32,
-                borderRadius: "8px",
-                background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <AutoStoriesIcon sx={{ color: "#fff", fontSize: 16 }} />
-            </Box>
-            <Typography variant="subtitle1" fontWeight={700}>
-              Tibyan | تبيان
-            </Typography>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Image
+              src="/images/tibyan.png"
+              alt="Tibyan Logo"
+              width={44}
+              height={44}
+              style={{ objectFit: "contain" }}
+            />
           </Box>
           <IconButton onClick={() => setMobileOpen(false)} size="small">
             <CloseIcon />
