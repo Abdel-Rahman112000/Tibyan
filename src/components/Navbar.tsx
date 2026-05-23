@@ -26,6 +26,7 @@ import { useTheme } from "@mui/material/styles";
 import { useTheme as useNextTheme } from "next-themes";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const navLinks = [
@@ -208,6 +209,8 @@ export default function Navbar() {
                 variant="outlined"
                 color="primary"
                 size="small"
+                component={Link}
+                href={`/${locale}/auth/login`}
                 sx={{ px: 2.5, py: 1, fontSize: "0.875rem" }}
               >
                 {t("login")}
@@ -216,7 +219,8 @@ export default function Navbar() {
                 variant="contained"
                 color="primary"
                 size="small"
-                onClick={() => scrollToSection("#contact")}
+                component={Link}
+                href={`/${locale}/auth/register`}
                 sx={{ px: 2.5, py: 1, fontSize: "0.875rem" }}
               >
                 {t("startLearning")}
@@ -302,14 +306,21 @@ export default function Navbar() {
         </List>
         <Divider sx={{ my: 2 }} />
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-          <Button variant="outlined" color="primary" fullWidth>
+          <Button
+            variant="outlined"
+            color="primary"
+            fullWidth
+            component={Link}
+            href={`/${locale}/auth/login`}
+          >
             {t("login")}
           </Button>
           <Button
             variant="contained"
             color="primary"
             fullWidth
-            onClick={() => scrollToSection("#contact")}
+            component={Link}
+            href={`/${locale}/auth/register`}
           >
             {t("startLearning")}
           </Button>

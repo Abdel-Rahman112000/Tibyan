@@ -208,5 +208,31 @@
     "rights": "جميع الحقوق محفوظة.",
     "privacy": "سياسة الخصوصية",
     "terms": "شروط الخدمة"
+  },
+  "auth": {
+    "loginTitle": "مرحبًا بعودتك",
+    "loginSubtitle": "سجّل الدخول لمواصلة رحلتك في تعلم القرآن",
+    "registerTitle": "إنشاء حساب",
+    "registerSubtitle": "ابدأ رحلتك في حفظ القرآن الكريم اليوم",
+    "continueWithGoogle": "المتابعة عبر جوجل",
+    "continueWithFacebook": "المتابعة عبر فيسبوك",
+    "orContinueWith": "أو المتابعة بالبريد الإلكتروني",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "phone": "رقم الهاتف",
+    "country": "الدولة",
+    "role": "أنا",
+    "roleStudent": "طالب",
+    "roleParent": "ولي أمر",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "loginButton": "تسجيل الدخول",
+    "registerButton": "إنشاء حساب",
+    "noAccount": "ليس لديك حساب؟",
+    "registerLink": "سجّل الآن",
+    "hasAccount": "لديك حساب بالفعل؟",
+    "loginLink": "تسجيل الدخول"
   }
 }

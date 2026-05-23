@@ -3,6 +3,8 @@
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import ThemeRegistry from "@/theme/ThemeRegistry";
+import QueryProvider from "@/components/providers/QueryProvider";
+import ToastProvider from "@/components/providers/ToastProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +14,12 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       enableSystem
       disableTransitionOnChange={false}
     >
-      <ThemeRegistry>{children}</ThemeRegistry>
+      <QueryProvider>
+        <ThemeRegistry>
+          {children}
+          <ToastProvider />
+        </ThemeRegistry>
+      </QueryProvider>
     </NextThemesProvider>
   );
 }

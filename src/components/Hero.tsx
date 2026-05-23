@@ -17,6 +17,7 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { alpha } from "@mui/material/styles";
+import Link from "next/link";
 import { GRID_GAP, RADIUS, SECTION_PADDING } from "@/theme/spacing";
 
 const AVATAR_COLORS = ["#047857", "#059669", "#0f9f6e", "#34d399"];
@@ -221,6 +222,8 @@ export default function Hero() {
                   variant="contained"
                   color="primary"
                   size="large"
+                  component={Link}
+                  href={`/${locale}/auth/register`}
                   sx={{
                     px: 4,
                     py: 1.6,

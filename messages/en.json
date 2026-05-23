@@ -208,5 +208,31 @@
     "rights": "All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
+  },
+  "auth": {
+    "loginTitle": "Welcome Back",
+    "loginSubtitle": "Sign in to continue your Quran learning journey",
+    "registerTitle": "Create Account",
+    "registerSubtitle": "Start your Quran memorization journey today",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithFacebook": "Continue with Facebook",
+    "orContinueWith": "or continue with email",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone Number",
+    "country": "Country",
+    "role": "I am a",
+    "roleStudent": "Student",
+    "roleParent": "Parent",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Sign In",
+    "registerButton": "Create Account",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Sign up",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Sign in"
   }
 }
