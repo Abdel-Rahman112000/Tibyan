@@ -25,10 +25,27 @@ const gold = {
 };
 
 // Re-export spacing constants for convenience
-export { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "./spacing";
+export {
+  SECTION_PADDING,
+  SECTION_HEADER_MB,
+  GRID_GAP,
+  CARD_PADDING,
+  RADIUS,
+} from "./spacing";
 
-export const getTheme = (mode: "light" | "dark"): Theme =>
-  createTheme({
+export const getTheme = (
+  mode: "light" | "dark",
+  direction: "ltr" | "rtl" = "ltr",
+  locale = "en",
+): Theme => {
+  const isRtl = direction === "rtl";
+  const fontFamily = isRtl
+    ? "'Cairo', 'Segoe UI', Arial, sans-serif"
+    : "'Inter', 'Segoe UI', Arial, sans-serif";
+  void locale; // available for future locale-specific overrides
+
+  return createTheme({
+    direction,
     // Custom spacing scale (1 unit = 8px by default)
     spacing: 8,
     palette: {
@@ -56,7 +73,7 @@ export const getTheme = (mode: "light" | "dark"): Theme =>
       divider: mode === "light" ? "#e5e7eb" : "#1f2d24",
     },
     typography: {
-      fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
+      fontFamily,
       h1: { fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.15 },
       h2: { fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
       h3: { fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
@@ -150,3 +167,4 @@ export const getTheme = (mode: "light" | "dark"): Theme =>
       },
     },
   });
+};

@@ -5,7 +5,12 @@ export {
   useLogout,
   useCurrentUser,
 } from "./hooks";
-export { loginSchema, registerSchema } from "./schemas";
+export {
+  loginSchema,
+  registerSchema,
+  createLoginSchema,
+  createRegisterSchema,
+} from "./schemas";
 export type { LoginFormValues, RegisterFormValues } from "./schemas";
 export type {
   User,

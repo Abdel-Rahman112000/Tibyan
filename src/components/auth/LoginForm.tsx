@@ -5,7 +5,6 @@ import {
   Box,
   Container,
   Typography,
-  TextField,
   Button,
   Divider,
   Stack,
@@ -24,7 +23,7 @@ import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useLogin, useSocialAuth, loginSchema } from "@/lib/auth";
+import { useLogin, useSocialAuth, createLoginSchema } from "@/lib/auth";
 import {
   loginWithFacebook,
   GOOGLE_CLIENT_ID,
@@ -32,6 +31,7 @@ import {
 } from "@/lib/auth/social";
 import type { LoginFormValues } from "@/lib/auth";
 import { RADIUS } from "@/theme/spacing";
+import { AuthTextField } from "./AuthFields";
 
 export default function LoginPage() {
   const t = useTranslations("auth");
@@ -43,12 +43,14 @@ export default function LoginPage() {
   const loginMutation = useLogin();
   const socialMutation = useSocialAuth();
 
+  const schema = React.useMemo(() => createLoginSchema(t), [t]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(schema),
     defaultValues: { email: "", password: "" },
   });
 
@@ -101,65 +103,6 @@ export default function LoginPage() {
   };
 
   const isLoading = loginMutation.isPending || socialMutation.isPending;
-  const fieldSx = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: RADIUS.large,
-      backgroundColor: alpha(theme.palette.background.paper, 0.26),
-      transition: "all 0.2s ease",
-      "& fieldset": {
-        borderColor: alpha(theme.palette.divider, 0.9),
-      },
-      "&:hover fieldset": {
-        borderColor: alpha(theme.palette.primary.main, 0.45),
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: theme.palette.primary.main,
-        borderWidth: "1px",
-      },
-      "& input": {
-        textAlign: isRtl ? "right" : "left",
-        paddingRight: isRtl ? "14px" : "14px",
-        paddingLeft: isRtl ? "14px" : "14px",
-      },
-    },
-    "& .MuiInputLabel-root": {
-      color: theme.palette.text.secondary,
-      fontWeight: 500,
-      right: isRtl ? 28 : "auto",
-      left: isRtl ? "auto" : 14,
-      transformOrigin: isRtl ? "top right" : "top left",
-      "&.MuiInputLabel-shrink": {
-        right: isRtl ? 14 : "auto",
-        left: isRtl ? "auto" : 14,
-      },
-    },
-    "& .MuiFormHelperText-root": {
-      textAlign: isRtl ? "right" : "left",
-      marginInlineStart: 0,
-      marginInlineEnd: 0,
-    },
-    "& .MuiOutlinedInput-notchedOutline legend": {
-      textAlign: isRtl ? "right" : "left",
-    },
-  };
-
-  const fieldSlotProps = {
-    inputLabel: {
-      sx: {
-        right: isRtl ? 28 : "auto",
-        left: isRtl ? "auto" : 14,
-        transformOrigin: isRtl ? "top right" : "top left",
-        "&.MuiInputLabel-shrink": {
-          right: isRtl ? 14 : "auto",
-          left: isRtl ? "auto" : 14,
-        },
-      },
-    },
-    htmlInput: {
-      dir: isRtl ? "rtl" : "ltr",
-      style: { textAlign: isRtl ? "right" : "left" } as React.CSSProperties,
-    },
-  };
 
   return (
     <Box
@@ -222,7 +165,7 @@ export default function LoginPage() {
           sx={{
             width: "100%",
             maxHeight: "100%",
-            p: { xs: 2, sm: 2.5 },
+            p: { xs: 2.5, sm: 3.5 },
             borderRadius: RADIUS.xl,
             background: alpha(theme.palette.background.paper, 0.88),
             border: `1px solid ${alpha(theme.palette.divider, 0.9)}`,
@@ -231,210 +174,183 @@ export default function LoginPage() {
             overflow: "hidden",
           }}
         >
-          <Box
-            sx={{
-              p: { xs: 1, sm: 1.25, md: 1.6 },
-              textAlign: isRtl ? "right" : "left",
-            }}
-          >
-            {/* Header */}
-            <Box sx={{ textAlign: isRtl ? "right" : "left", mb: 2.3 }}>
-              <Typography
-                variant="h4"
-                fontWeight={700}
+          {/* Header */}
+          <Box sx={{ textAlign: isRtl ? "right" : "left", mb: 2.3 }}>
+            <Typography
+              variant="h4"
+              fontWeight={700}
+              sx={{
+                mb: 0.8,
+                color: theme.palette.text.primary,
+                fontSize: { xs: "1.65rem", md: "1.85rem" },
+              }}
+            >
+              {t("loginTitle")}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {t("loginSubtitle")}
+            </Typography>
+          </Box>
+
+          {/* Email/Password Form */}
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Stack spacing={2}>
+              <AuthTextField
+                label={t("email")}
+                type="email"
+                autoComplete="email"
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                disabled={isLoading}
+                {...register("email")}
+              />
+
+              <AuthTextField
+                label={t("password")}
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                error={!!errors.password}
+                helperText={errors.password?.message}
+                disabled={isLoading}
+                extraSlotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                          size="small"
+                        >
+                          {showPassword ? (
+                            <VisibilityOffIcon fontSize="small" />
+                          ) : (
+                            <VisibilityIcon fontSize="small" />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                {...register("password")}
+              />
+
+              <Box
                 sx={{
-                  mb: 0.8,
-                  color: theme.palette.text.primary,
-                  fontSize: { xs: "1.65rem", md: "1.85rem" },
+                  display: "flex",
+                  justifyContent: isRtl ? "flex-start" : "flex-end",
                 }}
               >
-                {t("loginTitle")}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {t("loginSubtitle")}
-              </Typography>
-            </Box>
-
-            {/* Email/Password Form */}
-            <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-              <Stack spacing={2}>
-                <TextField
-                  fullWidth
-                  label={t("email")}
-                  type="email"
-                  autoComplete="email"
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                  disabled={isLoading}
-                  sx={fieldSx}
-                  slotProps={fieldSlotProps}
-                  {...register("email")}
-                />
-                <TextField
-                  fullWidth
-                  label={t("password")}
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="current-password"
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                  disabled={isLoading}
-                  sx={fieldSx}
-                  slotProps={{
-                    ...fieldSlotProps,
-                    input: {
-                      endAdornment: isRtl ? (
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={() => setShowPassword(!showPassword)}
-                            edge="end"
-                            size="small"
-                          >
-                            {showPassword ? (
-                              <VisibilityOffIcon fontSize="small" />
-                            ) : (
-                              <VisibilityIcon fontSize="small" />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ) : undefined,
-                      startAdornment: !isRtl ? (
-                        <InputAdornment position="start">
-                          <IconButton
-                            onClick={() => setShowPassword(!showPassword)}
-                            edge="start"
-                            size="small"
-                          >
-                            {showPassword ? (
-                              <VisibilityOffIcon fontSize="small" />
-                            ) : (
-                              <VisibilityIcon fontSize="small" />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ) : undefined,
-                    },
-                  }}
-                  {...register("password")}
-                />
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: isRtl ? "flex-start" : "flex-end",
+                <Link
+                  href={`/${locale}/auth/forgot-password`}
+                  style={{
+                    color: theme.palette.primary.main,
+                    fontSize: "0.85rem",
+                    textDecoration: "none",
+                    fontWeight: 500,
                   }}
                 >
-                  <Link
-                    href={`/${locale}/auth/forgot-password`}
-                    style={{
-                      color: theme.palette.primary.main,
-                      fontSize: "0.85rem",
-                      textDecoration: "none",
-                      fontWeight: 500,
-                    }}
-                  >
-                    {t("forgotPassword")}
-                  </Link>
-                </Box>
+                  {t("forgotPassword")}
+                </Link>
+              </Box>
 
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  disabled={isLoading}
-                  sx={{
-                    py: 1.2,
-                    borderRadius: RADIUS.medium,
-                    fontSize: "0.98rem",
-                    fontWeight: 700,
-                  }}
-                >
-                  {isLoading ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    t("loginButton")
-                  )}
-                </Button>
-
-                <Divider sx={{ my: 0.6 }}>
-                  <Typography variant="caption" color="text.secondary">
-                    {t("orContinueWith")}
-                  </Typography>
-                </Divider>
-
-                <Stack direction="row" gap={2}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    startIcon={<GoogleIcon />}
-                    onClick={handleGoogleLogin}
-                    disabled={isLoading}
-                    sx={{
-                      py: 1.05,
-                      borderRadius: RADIUS.medium,
-                      borderColor: theme.palette.divider,
-                      color: theme.palette.text.primary,
-                      fontWeight: 600,
-                      "& .MuiButton-startIcon": {
-                        mr: isRtl ? 0.5 : 0.8,
-                        ml: isRtl ? 0.8 : 0.5,
-                      },
-                      "&:hover": {
-                        borderColor: "#ea4335",
-                        bgcolor: alpha("#ea4335", 0.05),
-                      },
-                    }}
-                  >
-                    Google
-                  </Button>
-
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    startIcon={<FacebookIcon />}
-                    onClick={handleFacebookLogin}
-                    disabled={isLoading}
-                    sx={{
-                      py: 1.05,
-                      borderRadius: RADIUS.medium,
-                      borderColor: theme.palette.divider,
-                      color: theme.palette.text.primary,
-                      fontWeight: 600,
-                      "& .MuiButton-startIcon": {
-                        mr: isRtl ? 0.5 : 0.8,
-                        ml: isRtl ? 0.8 : 0.5,
-                      },
-                      "&:hover": {
-                        borderColor: "#1877f2",
-                        bgcolor: alpha("#1877f2", 0.05),
-                      },
-                    }}
-                  >
-                    Facebook
-                  </Button>
-                </Stack>
-              </Stack>
-            </Box>
-
-            {/* Register link */}
-            <Typography
-              variant="body2"
-              sx={{ textAlign: "center", mt: 2.5, color: "text.secondary" }}
-            >
-              {t("noAccount")}{" "}
-              <Link
-                href={`/${locale}/auth/register`}
-                style={{
-                  color: theme.palette.primary.main,
-                  textDecoration: "none",
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                size="large"
+                disabled={isLoading}
+                sx={{
+                  py: 1.2,
+                  borderRadius: RADIUS.medium,
+                  fontSize: "0.98rem",
                   fontWeight: 700,
                 }}
               >
-                {t("registerLink")}
-              </Link>
-            </Typography>
+                {isLoading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  t("loginButton")
+                )}
+              </Button>
+
+              <Divider sx={{ my: 0.6 }}>
+                <Typography variant="caption" color="text.secondary">
+                  {t("orContinueWith")}
+                </Typography>
+              </Divider>
+
+              <Stack direction="row" gap={2}>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  startIcon={<GoogleIcon />}
+                  onClick={handleGoogleLogin}
+                  disabled={isLoading}
+                  sx={{
+                    py: 1.05,
+                    borderRadius: RADIUS.medium,
+                    borderColor: theme.palette.divider,
+                    color: theme.palette.text.primary,
+                    fontWeight: 600,
+                    "& .MuiButton-startIcon": {
+                      mr: isRtl ? 0.5 : 0.8,
+                      ml: isRtl ? 0.8 : 0.5,
+                    },
+                    "&:hover": {
+                      borderColor: "#ea4335",
+                      bgcolor: alpha("#ea4335", 0.05),
+                    },
+                  }}
+                >
+                  Google
+                </Button>
+
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  startIcon={<FacebookIcon />}
+                  onClick={handleFacebookLogin}
+                  disabled={isLoading}
+                  sx={{
+                    py: 1.05,
+                    borderRadius: RADIUS.medium,
+                    borderColor: theme.palette.divider,
+                    color: theme.palette.text.primary,
+                    fontWeight: 600,
+                    "& .MuiButton-startIcon": {
+                      mr: isRtl ? 0.5 : 0.8,
+                      ml: isRtl ? 0.8 : 0.5,
+                    },
+                    "&:hover": {
+                      borderColor: "#1877f2",
+                      bgcolor: alpha("#1877f2", 0.05),
+                    },
+                  }}
+                >
+                  Facebook
+                </Button>
+              </Stack>
+            </Stack>
           </Box>
+
+          {/* Register link */}
+          <Typography
+            variant="body2"
+            sx={{ textAlign: "center", mt: 2.5, color: "text.secondary" }}
+          >
+            {t("noAccount")}{" "}
+            <Link
+              href={`/${locale}/auth/register`}
+              style={{
+                color: theme.palette.primary.main,
+                textDecoration: "none",
+                fontWeight: 700,
+              }}
+            >
+              {t("registerLink")}
+            </Link>
+          </Typography>
         </Box>
       </Container>
     </Box>

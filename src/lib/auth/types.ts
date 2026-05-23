@@ -13,7 +13,7 @@ export interface RegisterFormData {
   password: string;
   confirmPassword: string;
   country: string;
-  role: "student" | "parent";
+  role: "student" | "teacher";
 }
 
 export interface AuthTokens {
