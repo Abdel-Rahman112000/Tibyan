@@ -233,6 +233,7 @@
     "noAccount": "Don't have an account?",
     "registerLink": "Sign up",
     "hasAccount": "Already have an account?",
-    "loginLink": "Sign in"
+    "loginLink": "Sign in",
+    "socialLoginError": "Login failed. Please try again."
   }
 }

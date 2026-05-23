@@ -5,6 +5,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import QueryProvider from "@/components/providers/QueryProvider";
 import ToastProvider from "@/components/providers/ToastProvider";
+import { SocialAuthProvider } from "@/components/providers/SocialAuthProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -15,10 +16,12 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange={false}
     >
       <QueryProvider>
-        <ThemeRegistry>
-          {children}
-          <ToastProvider />
-        </ThemeRegistry>
+        <SocialAuthProvider>
+          <ThemeRegistry>
+            {children}
+            <ToastProvider />
+          </ThemeRegistry>
+        </SocialAuthProvider>
       </QueryProvider>
     </NextThemesProvider>
   );

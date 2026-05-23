@@ -14,3 +14,10 @@ export type {
   RegisterFormData,
 } from "./types";
 export { isAuthenticated, storeTokens } from "./api";
+export {
+  GOOGLE_CLIENT_ID,
+  FACEBOOK_APP_ID,
+  loginWithFacebook,
+  initFacebookSDK,
+  logoutFromFacebook,
+} from "./social";

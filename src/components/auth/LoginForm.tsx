@@ -23,7 +23,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { useGoogleLogin } from "@react-oauth/google";
 import { useLogin, useSocialAuth, loginSchema } from "@/lib/auth";
+import {
+  loginWithFacebook,
+  GOOGLE_CLIENT_ID,
+  FACEBOOK_APP_ID,
+} from "@/lib/auth/social";
 import type { LoginFormValues } from "@/lib/auth";
 import { RADIUS } from "@/theme/spacing";
 
@@ -50,19 +56,48 @@ export default function LoginPage() {
     loginMutation.mutate(data);
   };
 
+  // Google OAuth login
+  const googleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => {
+      socialMutation.mutate({
+        provider: "google",
+        accessToken: tokenResponse.access_token,
+      });
+    },
+    onError: (error) => {
+      console.error("Google login error:", error);
+      toast.error(
+        t("socialLoginError") || "Google login failed. Please try again.",
+      );
+    },
+  });
+
   const handleGoogleLogin = () => {
-    // In production, integrate with Google OAuth SDK
-    // For now, show info toast
-    toast("Google login: Integrate with Google OAuth SDK", { icon: "ℹ️" });
-    // Example after getting token from Google:
-    // socialMutation.mutate({ provider: "google", accessToken: googleToken });
+    if (!GOOGLE_CLIENT_ID) {
+      toast.error("Google login is not configured");
+      return;
+    }
+    googleLogin();
   };
 
-  const handleFacebookLogin = () => {
-    // In production, integrate with Facebook SDK
-    toast("Facebook login: Integrate with Facebook SDK", { icon: "ℹ️" });
-    // Example after getting token from Facebook:
-    // socialMutation.mutate({ provider: "facebook", accessToken: fbToken });
+  const handleFacebookLogin = async () => {
+    if (!FACEBOOK_APP_ID) {
+      toast.error("Facebook login is not configured");
+      return;
+    }
+
+    try {
+      const accessToken = await loginWithFacebook();
+      socialMutation.mutate({
+        provider: "facebook",
+        accessToken,
+      });
+    } catch (error) {
+      console.error("Facebook login error:", error);
+      toast.error(
+        t("socialLoginError") || "Facebook login failed. Please try again.",
+      );
+    }
   };
 
   const isLoading = loginMutation.isPending || socialMutation.isPending;
@@ -83,11 +118,20 @@ export default function LoginPage() {
       },
       "& input": {
         textAlign: isRtl ? "right" : "left",
+        paddingRight: isRtl ? "14px" : "14px",
+        paddingLeft: isRtl ? "14px" : "14px",
       },
     },
     "& .MuiInputLabel-root": {
       color: theme.palette.text.secondary,
       fontWeight: 500,
+      right: isRtl ? 28 : "auto",
+      left: isRtl ? "auto" : 14,
+      transformOrigin: isRtl ? "top right" : "top left",
+      "&.MuiInputLabel-shrink": {
+        right: isRtl ? 14 : "auto",
+        left: isRtl ? "auto" : 14,
+      },
     },
     "& .MuiFormHelperText-root": {
       textAlign: isRtl ? "right" : "left",
@@ -102,9 +146,13 @@ export default function LoginPage() {
   const fieldSlotProps = {
     inputLabel: {
       sx: {
-        right: isRtl ? 14 : "auto",
+        right: isRtl ? 28 : "auto",
         left: isRtl ? "auto" : 14,
         transformOrigin: isRtl ? "top right" : "top left",
+        "&.MuiInputLabel-shrink": {
+          right: isRtl ? 14 : "auto",
+          left: isRtl ? "auto" : 14,
+        },
       },
     },
     htmlInput: {

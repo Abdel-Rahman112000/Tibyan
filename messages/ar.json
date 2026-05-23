@@ -233,6 +233,7 @@
     "noAccount": "ليس لديك حساب؟",
     "registerLink": "سجّل الآن",
     "hasAccount": "لديك حساب بالفعل؟",
-    "loginLink": "تسجيل الدخول"
+    "loginLink": "تسجيل الدخول",
+    "socialLoginError": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى."
   }
 }
