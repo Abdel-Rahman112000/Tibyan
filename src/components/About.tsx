@@ -7,6 +7,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SECTION_PADDING, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 const iconMap = [
   <TrackChangesIcon key="mission" />,
@@ -32,8 +33,9 @@ export default function About() {
     <Box
       id="about"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 14 },
+        py: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
         background: theme.palette.background.default,
       }}
     >
@@ -42,7 +44,7 @@ export default function About() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" },
-            gap: { xs: 6, lg: 10 },
+            gap: { xs: GRID_GAP.xs + 2, lg: 8 },
             alignItems: "center",
           }}
         >
@@ -71,8 +73,8 @@ export default function About() {
                 variant="h3"
                 sx={{
                   fontWeight: 800,
-                  mb: 2.5,
-                  fontSize: { xs: "2rem", md: "2.5rem" },
+                  mb: 2,
+                  fontSize: { xs: "1.9rem", md: "2.5rem" },
                   lineHeight: 1.2,
                 }}
               >
@@ -84,7 +86,7 @@ export default function About() {
                   color: theme.palette.text.secondary,
                   lineHeight: 1.8,
                   fontSize: "1.05rem",
-                  mb: 4,
+                  mb: 3,
                   maxWidth: 500,
                 }}
               >
@@ -94,8 +96,8 @@ export default function About() {
               {/* Decorative Arabic text */}
               <Box
                 sx={{
-                  p: 3,
-                  borderRadius: "16px",
+                  p: CARD_PADDING.md,
+                  borderRadius: RADIUS.large,
                   background:
                     theme.palette.mode === "dark"
                       ? "rgba(4,120,87,0.08)"
@@ -127,7 +129,7 @@ export default function About() {
           </Box>
 
           {/* Right — Cards */}
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: GRID_GAP.xs }}>
             {cards.map((card, i) => (
               <motion.div
                 key={i}
@@ -137,12 +139,12 @@ export default function About() {
               >
                 <Box
                   sx={{
-                    p: 3,
-                    borderRadius: "16px",
+                    p: CARD_PADDING.md,
+                    borderRadius: RADIUS.large,
                     background: theme.palette.background.paper,
                     border: `1px solid ${theme.palette.divider}`,
                     display: "flex",
-                    gap: 2.5,
+                    gap: 2,
                     alignItems: "flex-start",
                     boxShadow: theme.shadows[1],
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -151,14 +153,13 @@ export default function About() {
                       boxShadow: theme.shadows[4],
                       borderColor: `${colorMap[i]}40`,
                     },
-                    cursor: "default",
                   }}
                 >
                   <Box
                     sx={{
                       width: 48,
                       height: 48,
-                      borderRadius: "12px",
+                      borderRadius: RADIUS.medium,
                       bgcolor: `${colorMap[i]}18`,
                       display: "flex",
                       alignItems: "center",

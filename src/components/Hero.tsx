@@ -19,6 +19,7 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import SchoolIcon from "@mui/icons-material/School";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
+import { GRID_GAP, RADIUS } from "@/theme/spacing";
 
 const floatAnimate = {
   y: [0, -16, 0],
@@ -115,7 +116,7 @@ export default function Hero() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" },
-            gap: { xs: 6, lg: 8 },
+            gap: { xs: GRID_GAP.xs + 2, lg: GRID_GAP.md + 4 },
             alignItems: "center",
           }}
         >
@@ -220,7 +221,7 @@ export default function Hero() {
                     px: 4,
                     py: 1.6,
                     fontSize: "1rem",
-                    borderRadius: "10px",
+                    borderRadius: RADIUS.medium,
                     boxShadow: `0 8px 24px ${theme.palette.primary.main}40`,
                   }}
                 >
@@ -235,7 +236,7 @@ export default function Hero() {
                     px: 4,
                     py: 1.6,
                     fontSize: "1rem",
-                    borderRadius: "10px",
+                    borderRadius: RADIUS.medium,
                   }}
                 >
                   {t("ctaSecondary")}

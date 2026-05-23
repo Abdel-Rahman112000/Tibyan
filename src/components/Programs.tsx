@@ -16,6 +16,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion, useInView } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 export default function Programs() {
   const t = useTranslations("programs");
@@ -62,8 +63,9 @@ export default function Programs() {
     <Box
       id="programs"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 14 },
+        py: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
         background:
           theme.palette.mode === "dark"
             ? `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`
@@ -71,7 +73,7 @@ export default function Programs() {
       }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: SECTION_HEADER_MB.xs, md: SECTION_HEADER_MB.md } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -119,7 +121,7 @@ export default function Programs() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
-            gap: 3,
+            gap: { xs: GRID_GAP.xs, md: GRID_GAP.md },
             alignItems: "stretch",
           }}
         >
@@ -173,7 +175,7 @@ export default function Programs() {
                 {/* Card header */}
                 <Box
                   sx={{
-                    p: 3,
+                    p: CARD_PADDING.md,
                     background: program.gradient,
                     color: "#fff",
                   }}
@@ -182,7 +184,7 @@ export default function Programs() {
                     sx={{
                       width: 60,
                       height: 60,
-                      borderRadius: "14px",
+                      borderRadius: RADIUS.medium,
                       bgcolor: "rgba(255,255,255,0.2)",
                       display: "flex",
                       alignItems: "center",
@@ -202,19 +204,19 @@ export default function Programs() {
                 </Box>
 
                 {/* Card body */}
-                <Box sx={{ p: 3, flex: 1, display: "flex", flexDirection: "column" }}>
+                <Box sx={{ p: CARD_PADDING.md, flex: 1, display: "flex", flexDirection: "column" }}>
                   <Typography
                     variant="body2"
                     sx={{
                       color: theme.palette.text.secondary,
                       lineHeight: 1.7,
-                      mb: 3,
+                      mb: GRID_GAP.xs,
                     }}
                   >
                     {program.desc}
                   </Typography>
 
-                  <Box sx={{ flex: 1, mb: 3 }}>
+                  <Box sx={{ flex: 1, mb: GRID_GAP.xs }}>
                     {program.features.map((feature, fi) => (
                       <Box
                         key={fi}

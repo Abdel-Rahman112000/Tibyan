@@ -8,6 +8,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SECTION_PADDING, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 function useCountUp(end: number, duration = 2000, start = false) {
   const [count, setCount] = React.useState(0);
@@ -59,8 +60,8 @@ function StatItem({
       <Box
         sx={{
           textAlign: "center",
-          p: { xs: 3, md: 4 },
-          borderRadius: "20px",
+          p: { xs: CARD_PADDING.md, md: 4 },
+          borderRadius: RADIUS.xl,
           background: theme.palette.background.paper,
           border: `1px solid ${theme.palette.divider}`,
           boxShadow: theme.shadows[2],

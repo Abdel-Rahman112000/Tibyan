@@ -13,6 +13,7 @@ import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import PublicIcon from "@mui/icons-material/Public";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 const students = [
   { name: "Abdullah Rahman", country: "Egypt", flag: "🇪🇬", surah: "Al-Fatiha", color: "#047857", letter: "A" },
@@ -33,8 +34,9 @@ export default function StudentVideos() {
     <Box
       id="videos"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 14 },
+        py: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
         background:
           theme.palette.mode === "dark"
             ? `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`
@@ -42,7 +44,7 @@ export default function StudentVideos() {
       }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: SECTION_HEADER_MB.xs, md: SECTION_HEADER_MB.md } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -86,7 +88,7 @@ export default function StudentVideos() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(3, 1fr)" },
-            gap: 3,
+            gap: { xs: GRID_GAP.xs, md: GRID_GAP.md },
           }}
         >
           {students.map((student, i) => (
@@ -98,7 +100,7 @@ export default function StudentVideos() {
             >
               <Box
                 sx={{
-                  borderRadius: "20px",
+                  borderRadius: RADIUS.xl,
                   overflow: "hidden",
                   background: theme.palette.background.paper,
                   border: `1px solid ${theme.palette.divider}`,

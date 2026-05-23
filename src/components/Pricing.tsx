@@ -12,6 +12,7 @@ import {
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 export default function Pricing() {
   const t = useTranslations("pricing");
@@ -59,8 +60,9 @@ export default function Pricing() {
     <Box
       id="pricing"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 14 },
+        py: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
         background: theme.palette.background.default,
         position: "relative",
         overflow: "hidden",
@@ -83,7 +85,7 @@ export default function Pricing() {
       />
 
       <Container maxWidth="lg" sx={{ position: "relative" }}>
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: SECTION_HEADER_MB.xs, md: SECTION_HEADER_MB.md } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -127,7 +129,7 @@ export default function Pricing() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
-            gap: 3,
+            gap: { xs: GRID_GAP.xs, md: GRID_GAP.md },
             alignItems: "center",
           }}
         >
@@ -185,7 +187,7 @@ export default function Pricing() {
                   </Box>
                 )}
 
-                <Box sx={{ p: { xs: 3, md: 4 }, flex: 1, display: "flex", flexDirection: "column" }}>
+                <Box sx={{ p: { xs: CARD_PADDING.md, md: 4 }, flex: 1, display: "flex", flexDirection: "column" }}>
                   <Typography
                     variant="overline"
                     sx={{

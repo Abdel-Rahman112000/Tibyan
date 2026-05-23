@@ -15,6 +15,7 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion, useInView } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 const teachers = [
   {
@@ -79,8 +80,9 @@ export default function Teachers() {
     <Box
       id="teachers"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 14 },
+        py: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
         background:
           theme.palette.mode === "dark"
             ? `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`
@@ -88,7 +90,7 @@ export default function Teachers() {
       }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: SECTION_HEADER_MB.xs, md: SECTION_HEADER_MB.md } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -140,7 +142,7 @@ export default function Teachers() {
               sm: "1fr 1fr",
               lg: "repeat(4, 1fr)",
             },
-            gap: 3,
+            gap: { xs: GRID_GAP.xs, md: GRID_GAP.md },
           }}
         >
           {teachers.map((teacher, i) => (
@@ -152,7 +154,7 @@ export default function Teachers() {
             >
               <Box
                 sx={{
-                  borderRadius: "20px",
+                  borderRadius: RADIUS.xl,
                   overflow: "hidden",
                   background: theme.palette.background.paper,
                   border: `1px solid ${theme.palette.divider}`,
@@ -163,7 +165,6 @@ export default function Teachers() {
                     boxShadow: `0 20px 50px ${teacher.color}25`,
                     borderColor: `${teacher.color}40`,
                   },
-                  cursor: "default",
                 }}
               >
                 {/* Top color band + avatar */}
@@ -174,7 +175,7 @@ export default function Teachers() {
                     position: "relative",
                   }}
                 />
-                <Box sx={{ px: 3, pb: 3, mt: -4 }}>
+                <Box sx={{ px: CARD_PADDING.md, pb: CARD_PADDING.md, mt: -4 }}>
                   <Avatar
                     sx={{
                       width: 72,

@@ -19,6 +19,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useTranslations, useLocale } from "next-intl";
+import { GRID_GAP, RADIUS } from "@/theme/spacing";
 
 const navLinks = [
   "home",
@@ -55,7 +56,7 @@ export default function Footer() {
             ? "#060d09"
             : `linear-gradient(180deg, ${theme.palette.primary.dark} 0%, #02331e 100%)`,
         color: "#fff",
-        pt: { xs: 8, md: 12 },
+        pt: { xs: GRID_GAP.md + 4, md: 10 },
         pb: 4,
         position: "relative",
         overflow: "hidden",
@@ -82,8 +83,8 @@ export default function Footer() {
               sm: "1fr 1fr",
               md: "2fr 1fr 1fr 1.5fr",
             },
-            gap: { xs: 5, md: 6 },
-            mb: 6,
+            gap: { xs: 4, md: GRID_GAP.md + 2 },
+            mb: GRID_GAP.md,
           }}
         >
           {/* Brand column */}
@@ -95,7 +96,7 @@ export default function Footer() {
                 sx={{
                   width: 42,
                   height: 42,
-                  borderRadius: "12px",
+                  borderRadius: RADIUS.medium,
                   bgcolor: "rgba(255,255,255,0.15)",
                   display: "flex",
                   alignItems: "center",

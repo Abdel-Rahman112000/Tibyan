@@ -6,6 +6,7 @@ import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SECTION_PADDING, RADIUS } from "@/theme/spacing";
 
 export default function CTA() {
   const t = useTranslations("cta");
@@ -17,8 +18,9 @@ export default function CTA() {
     <Box
       id="contact"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 16 },
+        py: { xs: SECTION_PADDING.xs, md: 14 },
         position: "relative",
         overflow: "hidden",
         background:
@@ -129,7 +131,7 @@ export default function CTA() {
                 px: 4,
                 py: 1.8,
                 fontSize: "1rem",
-                borderRadius: "10px",
+                borderRadius: RADIUS.medium,
                 boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
                 "&:hover": {
                   bgcolor: "rgba(255,255,255,0.92)",
@@ -150,7 +152,7 @@ export default function CTA() {
                 px: 4,
                 py: 1.8,
                 fontSize: "1rem",
-                borderRadius: "10px",
+                borderRadius: RADIUS.medium,
                 "&:hover": {
                   borderColor: "#fff",
                   bgcolor: "rgba(255,255,255,0.08)",

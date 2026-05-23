@@ -15,6 +15,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SECTION_PADDING, SECTION_HEADER_MB, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 export default function FAQ() {
   const t = useTranslations("faq");
@@ -40,13 +41,14 @@ export default function FAQ() {
     <Box
       id="faq"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 14 },
+        py: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
         background: theme.palette.background.default,
       }}
     >
       <Container maxWidth="md">
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: SECTION_HEADER_MB.xs, md: SECTION_HEADER_MB.md } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -100,7 +102,7 @@ export default function FAQ() {
                 disableGutters
                 elevation={0}
                 sx={{
-                  borderRadius: "14px !important",
+                  borderRadius: `${RADIUS.medium} !important`,
                   border: `1px solid ${
                     expanded === faq.id
                       ? theme.palette.primary.main + "50"

@@ -17,6 +17,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 const testimonials = [
   {
@@ -140,8 +141,9 @@ export default function Testimonials() {
     <Box
       id="testimonials"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 14 },
+        py: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
         background:
           theme.palette.mode === "dark"
             ? `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`
@@ -150,7 +152,7 @@ export default function Testimonials() {
       }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: SECTION_HEADER_MB.xs, md: SECTION_HEADER_MB.md } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -200,7 +202,7 @@ export default function Testimonials() {
             sx={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 3,
+              gap: { xs: GRID_GAP.xs, md: GRID_GAP.md },
               mb: 4,
             }}
           >

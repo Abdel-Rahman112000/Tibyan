@@ -7,6 +7,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 export default function HowItWorks() {
   const t = useTranslations("howItWorks");
@@ -42,8 +43,9 @@ export default function HowItWorks() {
     <Box
       id="how-it-works"
       ref={ref}
+      component="section"
       sx={{
-        py: { xs: 10, md: 14 },
+        py: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
         background: theme.palette.background.default,
         position: "relative",
         overflow: "hidden",
@@ -65,7 +67,7 @@ export default function HowItWorks() {
       />
 
       <Container maxWidth="lg" sx={{ position: "relative" }}>
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: { xs: SECTION_HEADER_MB.xs, md: SECTION_HEADER_MB.md } }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -113,7 +115,7 @@ export default function HowItWorks() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
-            gap: 4,
+            gap: { xs: GRID_GAP.md, md: 4 },
             position: "relative",
           }}
         >
@@ -143,8 +145,8 @@ export default function HowItWorks() {
                   textAlign: "center",
                   position: "relative",
                   zIndex: 1,
-                  p: { xs: 3, md: 4 },
-                  borderRadius: "20px",
+                  p: { xs: CARD_PADDING.md, md: 4 },
+                  borderRadius: RADIUS.xl,
                   background: theme.palette.background.paper,
                   border: `1px solid ${theme.palette.divider}`,
                   boxShadow: theme.shadows[1],

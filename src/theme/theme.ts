@@ -1,5 +1,6 @@
 import { createTheme, type Theme } from "@mui/material/styles";
 
+// Color palettes
 const emerald = {
   50: "#ecfdf5",
   100: "#d1fae5",
@@ -23,8 +24,13 @@ const gold = {
   700: "#b45309",
 };
 
+// Re-export spacing constants for convenience
+export { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "./spacing";
+
 export const getTheme = (mode: "light" | "dark"): Theme =>
   createTheme({
+    // Custom spacing scale (1 unit = 8px by default)
+    spacing: 8,
     palette: {
       mode,
       primary: {
@@ -51,12 +57,14 @@ export const getTheme = (mode: "light" | "dark"): Theme =>
     },
     typography: {
       fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
-      h1: { fontWeight: 800, letterSpacing: "-0.02em" },
-      h2: { fontWeight: 700, letterSpacing: "-0.01em" },
-      h3: { fontWeight: 700, letterSpacing: "-0.01em" },
-      h4: { fontWeight: 600 },
-      h5: { fontWeight: 600 },
-      h6: { fontWeight: 600 },
+      h1: { fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.15 },
+      h2: { fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
+      h3: { fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
+      h4: { fontWeight: 600, lineHeight: 1.3 },
+      h5: { fontWeight: 600, lineHeight: 1.3 },
+      h6: { fontWeight: 600, lineHeight: 1.4 },
+      body1: { lineHeight: 1.7 },
+      body2: { lineHeight: 1.7 },
       button: { textTransform: "none", fontWeight: 600 },
     },
     shape: { borderRadius: 12 },
