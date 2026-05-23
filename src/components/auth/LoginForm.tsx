@@ -22,11 +22,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { useGoogleLogin } from "@react-oauth/google";
 import { useLogin, useSocialAuth, createLoginSchema } from "@/lib/auth";
 import {
   loginWithFacebook,
-  GOOGLE_CLIENT_ID,
+  signInWithGoogle,
+  isFirebaseConfigured,
   FACEBOOK_APP_ID,
 } from "@/lib/auth/social";
 import type { LoginFormValues } from "@/lib/auth";
@@ -39,6 +39,7 @@ export default function LoginPage() {
   const locale = useLocale();
   const isRtl = locale === "ar";
   const [showPassword, setShowPassword] = React.useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = React.useState(false);
 
   const loginMutation = useLogin();
   const socialMutation = useSocialAuth();
@@ -58,28 +59,28 @@ export default function LoginPage() {
     loginMutation.mutate(data);
   };
 
-  // Google OAuth login
-  const googleLogin = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      socialMutation.mutate({
-        provider: "google",
-        accessToken: tokenResponse.access_token,
-      });
-    },
-    onError: (error) => {
-      console.error("Google login error:", error);
-      toast.error(
-        t("socialLoginError") || "Google login failed. Please try again.",
-      );
-    },
-  });
-
-  const handleGoogleLogin = () => {
-    if (!GOOGLE_CLIENT_ID) {
+  // Google login with Firebase
+  const handleGoogleLogin = async () => {
+    if (!isFirebaseConfigured()) {
       toast.error("Google login is not configured");
       return;
     }
-    googleLogin();
+
+    setIsGoogleLoading(true);
+    try {
+      const { idToken } = await signInWithGoogle();
+      socialMutation.mutate({
+        provider: "google",
+        accessToken: idToken,
+      });
+    } catch (error) {
+      console.error("Google login error:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Google login failed";
+      toast.error(t("socialLoginError") || errorMessage);
+    } finally {
+      setIsGoogleLoading(false);
+    }
   };
 
   const handleFacebookLogin = async () => {
@@ -102,7 +103,7 @@ export default function LoginPage() {
     }
   };
 
-  const isLoading = loginMutation.isPending || socialMutation.isPending;
+  const isLoading = loginMutation.isPending || socialMutation.isPending || isGoogleLoading;
 
   return (
     <Box

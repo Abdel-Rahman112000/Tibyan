@@ -33,19 +33,8 @@ export {
   RADIUS,
 } from "./spacing";
 
-export const getTheme = (
-  mode: "light" | "dark",
-  direction: "ltr" | "rtl" = "ltr",
-  locale = "en",
-): Theme => {
-  const isRtl = direction === "rtl";
-  const fontFamily = isRtl
-    ? "'Cairo', 'Segoe UI', Arial, sans-serif"
-    : "'Inter', 'Segoe UI', Arial, sans-serif";
-  void locale; // available for future locale-specific overrides
-
-  return createTheme({
-    direction,
+export const getTheme = (mode: "light" | "dark"): Theme =>
+  createTheme({
     // Custom spacing scale (1 unit = 8px by default)
     spacing: 8,
     palette: {
@@ -73,7 +62,7 @@ export const getTheme = (
       divider: mode === "light" ? "#e5e7eb" : "#1f2d24",
     },
     typography: {
-      fontFamily,
+      fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
       h1: { fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.15 },
       h2: { fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
       h3: { fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
@@ -167,4 +156,3 @@ export const getTheme = (
       },
     },
   });
-};

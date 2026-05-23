@@ -18,7 +18,13 @@
     "ctaSecondary": "استكشف البرامج",
     "stat1": "500+ طالب",
     "stat2": "50+ دولة",
-    "stat3": "200+ معلم"
+    "stat3": "200+ معلم",
+    "titleAr": "تبيـان",
+    "titleEn": "أكاديمية تبيان للقرآن",
+    "liveClasses": "حصص مباشرة",
+    "expertTutors": "معلمون خبراء",
+    "flexibleSchedule": "جدول مرن",
+    "ratingText": "تقييم من أكثر من 5000 طالب"
   },
   "trust": {
     "title": "يثق بنا الآباء حول العالم",
@@ -249,7 +255,9 @@
     "lastNameMin": "يجب أن يكون اسم العائلة حرفين على الأقل",
     "lastNameMax": "يجب أن يكون اسم العائلة أقل من 50 حرفًا",
     "phoneRequired": "رقم الهاتف مطلوب",
+    "phoneDigitsOnly": "يجب أن يحتوي رقم الهاتف على أرقام فقط",
     "phoneInvalid": "صيغة رقم الهاتف غير صالحة",
+    "phoneInvalidCountry": "رقم الهاتف غير صالح للدولة المختارة",
     "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
     "countryRequired": "الدولة مطلوبة",
     "roleRequired": "يرجى اختيار الدور",

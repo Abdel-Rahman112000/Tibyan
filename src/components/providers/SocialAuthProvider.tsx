@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import {
-  GOOGLE_CLIENT_ID,
-  FACEBOOK_APP_ID,
-  initFacebookSDK,
-} from "@/lib/auth/social";
+import { FACEBOOK_APP_ID, initFacebookSDK } from "@/lib/auth/social";
 
 interface SocialAuthProviderProps {
   children: React.ReactNode;
@@ -22,11 +17,6 @@ export function SocialAuthProvider({ children }: SocialAuthProviderProps) {
     }
   }, []);
 
-  // Always wrap with Google OAuth Provider - hooks require the context
-  // If no client ID, Google login button will show error when clicked
-  return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID || "placeholder"}>
-      {children}
-    </GoogleOAuthProvider>
-  );
+  // Firebase doesn't require a context provider for auth
+  return <>{children}</>;
 }

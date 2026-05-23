@@ -6,7 +6,7 @@ import {
   Container,
   Typography,
   Button,
-  Grid,
+  Stack,
   IconButton,
   InputAdornment,
   CircularProgress,
@@ -108,7 +108,7 @@ export function RegisterForm() {
         justifyContent: "center",
         position: "relative",
         overflow: "hidden",
-        py: { xs: 2, md: 3 },
+        py: { xs: 3, md: 4 },
         background:
           theme.palette.mode === "dark"
             ? "linear-gradient(135deg, #0a0f0d 0%, #0d1f18 50%, #0a0f0d 100%)"
@@ -156,7 +156,7 @@ export function RegisterForm() {
         <Box
           sx={{
             width: "100%",
-            p: { xs: 2, sm: 3 },
+            p: { xs: 2.5, sm: 3.5 },
             borderRadius: RADIUS.xl,
             background: alpha(theme.palette.background.paper, 0.88),
             border: `1px solid ${alpha(theme.palette.divider, 0.9)}`,
@@ -165,14 +165,14 @@ export function RegisterForm() {
           }}
         >
           {/* Header */}
-          <Box sx={{ textAlign: isRtl ? "right" : "left", mb: 2 }}>
+          <Box sx={{ textAlign: isRtl ? "right" : "left", mb: 3 }}>
             <Typography
-              variant="h5"
+              variant="h4"
               fontWeight={700}
               sx={{
-                mb: 0.5,
+                mb: 0.8,
                 color: theme.palette.text.primary,
-                fontSize: { xs: "1.4rem", md: "1.6rem" },
+                fontSize: { xs: "1.65rem", md: "1.85rem" },
               }}
             >
               {t("registerTitle")}
@@ -184,63 +184,52 @@ export function RegisterForm() {
 
           {/* Registration Form */}
           <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-            <Grid container spacing={1.5}>
+            <Stack sx={{ gap: 2.5 }}>
               {/* Name row */}
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Stack direction={{ xs: "column", sm: "row" }} sx={{ gap: 2 }}>
                 <AuthTextField
                   label={t("firstName")}
-                  size="small"
                   error={!!errors.firstName}
                   helperText={errors.firstName?.message}
                   disabled={isLoading}
                   {...register("firstName")}
                 />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
                 <AuthTextField
                   label={t("lastName")}
-                  size="small"
                   error={!!errors.lastName}
                   helperText={errors.lastName?.message}
                   disabled={isLoading}
                   {...register("lastName")}
                 />
-              </Grid>
+              </Stack>
 
-              <Grid size={12}>
-                <AuthTextField
-                  label={t("email")}
-                  size="small"
-                  type="email"
-                  autoComplete="email"
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                  disabled={isLoading}
-                  {...register("email")}
-                />
-              </Grid>
+              <AuthTextField
+                label={t("email")}
+                type="email"
+                autoComplete="email"
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                disabled={isLoading}
+                {...register("email")}
+              />
 
-              <Grid size={12}>
-                <AuthTextField
-                  label={t("phone")}
-                  size="small"
-                  type="tel"
-                  error={!!errors.phone}
-                  helperText={errors.phone?.message}
-                  disabled={isLoading}
-                  {...register("phone")}
-                />
-              </Grid>
+              <AuthTextField
+                label={t("phone")}
+                type="tel"
+                error={!!errors.phone}
+                helperText={errors.phone?.message}
+                disabled={isLoading}
+                {...register("phone")}
+              />
 
               {/* Country & Role row */}
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
                 <Controller
                   name="country"
                   control={control}
                   render={({ field }) => (
                     <AuthSelectField
                       label={t("country")}
-                      size="small"
                       error={!!errors.country}
                       helperText={errors.country?.message}
                       disabled={isLoading}
@@ -249,15 +238,12 @@ export function RegisterForm() {
                     />
                   )}
                 />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
                 <Controller
                   name="role"
                   control={control}
                   render={({ field }) => (
                     <AuthSelectField
                       label={t("role")}
-                      size="small"
                       error={!!errors.role}
                       helperText={errors.role?.message}
                       disabled={isLoading}
@@ -266,105 +252,98 @@ export function RegisterForm() {
                     />
                   )}
                 />
-              </Grid>
+              </Stack>
 
               {/* Password */}
-              <Grid size={12}>
-                <AuthTextField
-                  label={t("password")}
-                  size="small"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="new-password"
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                  disabled={isLoading}
-                  extraSlotProps={{
-                    input: {
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={() => setShowPassword(!showPassword)}
-                            edge="end"
-                            size="small"
-                          >
-                            {showPassword ? (
-                              <VisibilityOffIcon fontSize="small" />
-                            ) : (
-                              <VisibilityIcon fontSize="small" />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    },
-                  }}
-                  {...register("password")}
-                />
-              </Grid>
+              <AuthTextField
+                label={t("password")}
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                error={!!errors.password}
+                helperText={errors.password?.message}
+                disabled={isLoading}
+                extraSlotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                          size="small"
+                        >
+                          {showPassword ? (
+                            <VisibilityOffIcon fontSize="small" />
+                          ) : (
+                            <VisibilityIcon fontSize="small" />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                {...register("password")}
+              />
 
               {/* Confirm Password */}
-              <Grid size={12}>
-                <AuthTextField
-                  label={t("confirmPassword")}
-                  size="small"
-                  type={showConfirmPassword ? "text" : "password"}
-                  autoComplete="new-password"
-                  error={!!errors.confirmPassword}
-                  helperText={errors.confirmPassword?.message}
-                  disabled={isLoading}
-                  extraSlotProps={{
-                    input: {
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={() =>
-                              setShowConfirmPassword(!showConfirmPassword)
-                            }
-                            edge="end"
-                            size="small"
-                          >
-                            {showConfirmPassword ? (
-                              <VisibilityOffIcon fontSize="small" />
-                            ) : (
-                              <VisibilityIcon fontSize="small" />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    },
-                  }}
-                  {...register("confirmPassword")}
-                />
-              </Grid>
+              <AuthTextField
+                label={t("confirmPassword")}
+                type={showConfirmPassword ? "text" : "password"}
+                autoComplete="new-password"
+                error={!!errors.confirmPassword}
+                helperText={errors.confirmPassword?.message}
+                disabled={isLoading}
+                extraSlotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
+                          edge="end"
+                          size="small"
+                        >
+                          {showConfirmPassword ? (
+                            <VisibilityOffIcon fontSize="small" />
+                          ) : (
+                            <VisibilityIcon fontSize="small" />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                {...register("confirmPassword")}
+              />
 
-              <Grid size={12}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  disabled={isLoading}
-                  sx={{
-                    py: 1.2,
-                    borderRadius: RADIUS.medium,
-                    fontSize: "0.95rem",
-                    fontWeight: 700,
-                  }}
-                >
-                  {isLoading ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    t("registerButton")
-                  )}
-                </Button>
-              </Grid>
-            </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                size="large"
+                disabled={isLoading}
+                sx={{
+                  mt: 1,
+                  py: 1.4,
+                  borderRadius: RADIUS.medium,
+                  fontSize: "1rem",
+                  fontWeight: 700,
+                }}
+              >
+                {isLoading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  t("registerButton")
+                )}
+              </Button>
+            </Stack>
           </Box>
 
           {/* Login link */}
           <Typography
             variant="body2"
-            sx={{ textAlign: "center", mt: 2, color: "text.secondary" }}
+            sx={{ textAlign: "center", mt: 2.5, color: "text.secondary" }}
           >
             {t("hasAccount")}{" "}
             <Link

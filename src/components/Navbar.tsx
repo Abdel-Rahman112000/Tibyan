@@ -277,7 +277,7 @@ export default function Navbar() {
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Image
-              src="/images/tibyan.png"
+              src="/images/tibyan2.png"
               alt="Tibyan Logo"
               width={44}
               height={44}

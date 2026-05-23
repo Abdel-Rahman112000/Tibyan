@@ -12,6 +12,8 @@ export {
   createRegisterSchema,
 } from "./schemas";
 export type { LoginFormValues, RegisterFormValues } from "./schemas";
+export { PHONE_FORMATS } from "./phoneFormats";
+export type { PhoneFormat } from "./phoneFormats";
 export type {
   User,
   AuthResponse,
@@ -20,9 +22,10 @@ export type {
 } from "./types";
 export { isAuthenticated, storeTokens } from "./api";
 export {
-  GOOGLE_CLIENT_ID,
   FACEBOOK_APP_ID,
   loginWithFacebook,
   initFacebookSDK,
   logoutFromFacebook,
+  signInWithGoogle,
+  isFirebaseConfigured,
 } from "./social";

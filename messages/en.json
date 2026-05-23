@@ -18,7 +18,13 @@
     "ctaSecondary": "Explore Programs",
     "stat1": "500+ Students",
     "stat2": "50+ Countries",
-    "stat3": "200+ Teachers"
+    "stat3": "200+ Teachers",
+    "titleAr": "تبيـان",
+    "titleEn": "Tibyan Quran Academy",
+    "liveClasses": "Live Classes",
+    "expertTutors": "Expert Tutors",
+    "flexibleSchedule": "Flexible Schedule",
+    "ratingText": "Rating from 5000+ Students"
   },
   "trust": {
     "title": "Trusted by Families Worldwide",
@@ -249,7 +255,9 @@
     "lastNameMin": "Last name must be at least 2 characters",
     "lastNameMax": "Last name must be less than 50 characters",
     "phoneRequired": "Phone number is required",
+    "phoneDigitsOnly": "Phone number must contain digits only",
     "phoneInvalid": "Invalid phone number format",
+    "phoneInvalidCountry": "Invalid phone number for the selected country",
     "confirmPasswordRequired": "Please confirm your password",
     "countryRequired": "Country is required",
     "roleRequired": "Please select a role",

@@ -1,8 +1,11 @@
 // Social Auth Configuration & Utilities
+import { signInWithGoogle, isFirebaseConfigured } from "@/lib/firebase";
 
 // Environment variables for OAuth credentials
-export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
 export const FACEBOOK_APP_ID = process.env.NEXT_PUBLIC_FACEBOOK_APP_ID || "";
+
+// Re-export Firebase Google auth
+export { signInWithGoogle, isFirebaseConfigured };
 
 // Facebook SDK types
 declare global {

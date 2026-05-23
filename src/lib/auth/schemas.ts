@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PHONE_FORMATS } from "./phoneFormats";
 
 // Schema factory that accepts translation function
 export function createLoginSchema(t: (key: string) => string) {
@@ -34,9 +35,7 @@ export function createRegisterSchema(t: (key: string) => string) {
       phone: z
         .string()
         .min(1, { message: t("phoneRequired") })
-        .regex(/^\+?[1-9]\d{7,14}$/, {
-          message: t("phoneInvalid"),
-        }),
+        .regex(/^\d+$/, { message: t("phoneDigitsOnly") }),
       password: z
         .string()
         .min(1, { message: t("passwordRequired") })
@@ -61,6 +60,17 @@ export function createRegisterSchema(t: (key: string) => string) {
     .refine((data) => data.password === data.confirmPassword, {
       message: t("passwordsMismatch"),
       path: ["confirmPassword"],
+    })
+    .superRefine((data, ctx) => {
+      if (!data.country || !data.phone) return;
+      const format = PHONE_FORMATS[data.country] ?? PHONE_FORMATS.OTHER;
+      if (!format.regex.test(data.phone)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: t("phoneInvalidCountry"),
+          path: ["phone"],
+        });
+      }
     });
 }
 
