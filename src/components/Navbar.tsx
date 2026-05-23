@@ -104,7 +104,7 @@ export default function Navbar() {
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
-            sx={{ minHeight: { xs: 64, md: 72 }, gap: 1 }}
+            sx={{ minHeight: { xs: 64, md: 72 }, justifyContent: "space-between" }}
           >
             {/* Logo */}
             <motion.div
@@ -127,8 +127,6 @@ export default function Navbar() {
                 priority
               />
             </motion.div>
-
-            <Box sx={{ flexGrow: 1 }} />
 
             {/* Desktop Nav Links */}
             <Box
