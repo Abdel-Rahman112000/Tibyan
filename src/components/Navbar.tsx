@@ -104,7 +104,10 @@ export default function Navbar() {
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
-            sx={{ minHeight: { xs: 64, md: 72 }, justifyContent: "space-between" }}
+            sx={{
+              minHeight: { xs: 64, md: 72 },
+              justifyContent: "space-between",
+            }}
           >
             {/* Logo */}
             <motion.div
@@ -119,10 +122,10 @@ export default function Navbar() {
               onClick={() => scrollToSection("#home")}
             >
               <Image
-                src="/images/tibyan.png"
+                src="/images/tibyan-logo.png"
                 alt="Tibyan Logo"
                 width={200}
-                height={80}
+                height={90}
                 style={{ objectFit: "contain" }}
                 priority
               />
