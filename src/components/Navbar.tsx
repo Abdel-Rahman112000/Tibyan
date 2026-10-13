@@ -8,7 +8,6 @@ import {
   Button,
   IconButton,
   Container,
-  useScrollTrigger,
   Drawer,
   List,
   ListItem,
@@ -26,6 +25,7 @@ import { useTheme } from "@mui/material/styles";
 import { useTheme as useNextTheme } from "next-themes";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const navLinks = [
@@ -37,6 +37,23 @@ const navLinks = [
   { key: "faq", href: "#faq" },
   { key: "contact", href: "#contact" },
 ];
+
+// إعدادات الأنيميشن للروابط
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
 
 export default function Navbar() {
   const t = useTranslations("nav");
@@ -51,11 +68,6 @@ export default function Navbar() {
   React.useEffect(() => {
     setMounted(true);
   }, []);
-
-  const scrolled = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 20,
-  });
 
   const isDark = mounted && resolvedTheme === "dark";
   const isRtl = locale === "ar";
@@ -87,15 +99,13 @@ export default function Navbar() {
         position="fixed"
         elevation={0}
         sx={{
-          backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
-          backgroundColor: scrolled
-            ? theme.palette.mode === "dark"
+          // خلفية ثابتة دائماً مع تأثير زجاجي (Glassmorphism)
+          backdropFilter: "blur(20px) saturate(180%)",
+          backgroundColor:
+            theme.palette.mode === "dark"
               ? "rgba(10,15,13,0.85)"
-              : "rgba(255,255,255,0.85)"
-            : "transparent",
-          borderBottom: scrolled
-            ? `1px solid ${theme.palette.divider}`
-            : "none",
+              : "rgba(255,255,255,0.85)",
+          borderBottom: `1px solid ${theme.palette.divider}`,
           transition: "all 0.3s ease",
           color: theme.palette.text.primary,
         }}
@@ -103,13 +113,16 @@ export default function Navbar() {
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
-            sx={{ minHeight: { xs: 64, md: 72 }, gap: 1 }}
+            sx={{
+              minHeight: { xs: 70, md: 80 }, // زيادة بسيطة في الارتفاع لشكل أكثر فخامة
+              justifyContent: "space-between",
+            }}
           >
             {/* Logo */}
             <motion.div
               initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -118,60 +131,93 @@ export default function Navbar() {
               onClick={() => scrollToSection("#home")}
             >
               <Image
-                src="/images/tibyan.png"
+                src="/images/tibyan-logo.jpg"
                 alt="Tibyan Logo"
                 width={200}
-                height={80}
+                height={90}
                 style={{ objectFit: "contain" }}
                 priority
               />
             </motion.div>
 
-            <Box sx={{ flexGrow: 1 }} />
-
             {/* Desktop Nav Links */}
             <Box
+              component={motion.div}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
               sx={{
                 display: { xs: "none", lg: "flex" },
-                gap: 0.5,
+                gap: 1.5,
                 alignItems: "center",
               }}
             >
               {navLinks.map((link) => (
-                <Button
-                  key={link.key}
-                  onClick={() => scrollToSection(link.href)}
-                  sx={{
-                    color: theme.palette.text.secondary,
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    px: 1.5,
-                    py: 1,
-                    "&:hover": {
-                      color: theme.palette.primary.main,
+                <motion.div key={link.key} variants={itemVariants}>
+                  <Button
+                    onClick={() => scrollToSection(link.href)}
+                    disableRipple
+                    sx={{
+                      color: theme.palette.text.secondary,
+                      fontSize: "0.95rem",
+                      fontWeight: 500,
+                      position: "relative",
+                      px: 1.5,
+                      py: 1,
                       backgroundColor: "transparent",
-                    },
-                  }}
-                >
-                  {t(link.key as Parameters<typeof t>[0])}
-                </Button>
+                      "&::after": {
+                        content: '""',
+                        position: "absolute",
+                        width: "0%",
+                        height: "2px",
+                        bottom: "4px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        backgroundColor: theme.palette.primary.main,
+                        transition: "width 0.3s ease-in-out",
+                      },
+                      "&:hover": {
+                        color: theme.palette.primary.main,
+                        backgroundColor: "transparent",
+                        "&::after": {
+                          width: "60%", // تأثير الخط السفلي عند التمرير
+                        },
+                      },
+                    }}
+                  >
+                    {t(link.key as Parameters<typeof t>[0])}
+                  </Button>
+                </motion.div>
               ))}
             </Box>
 
-            <Box sx={{ display: { xs: "none", lg: "flex" }, gap: 1, ml: 2 }}>
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              sx={{
+                display: { xs: "none", lg: "flex" },
+                gap: 1.5,
+                ml: 2,
+                alignItems: "center",
+              }}
+            >
               {/* Language Toggle */}
               <IconButton
                 onClick={switchLocale}
                 size="small"
                 sx={{
                   border: `1px solid ${theme.palette.divider}`,
-                  borderRadius: "8px",
-                  width: 38,
-                  height: 38,
+                  borderRadius: "10px",
+                  width: 40,
+                  height: 40,
                   color: theme.palette.text.secondary,
+                  transition: "all 0.2s ease",
                   "&:hover": {
                     borderColor: theme.palette.primary.main,
                     color: theme.palette.primary.main,
+                    transform: "translateY(-2px)", // حركة خفيفة لأعلى
                   },
                 }}
                 title={locale === "en" ? "عربي" : "English"}
@@ -186,13 +232,15 @@ export default function Navbar() {
                   size="small"
                   sx={{
                     border: `1px solid ${theme.palette.divider}`,
-                    borderRadius: "8px",
-                    width: 38,
-                    height: 38,
+                    borderRadius: "10px",
+                    width: 40,
+                    height: 40,
                     color: theme.palette.text.secondary,
+                    transition: "all 0.2s ease",
                     "&:hover": {
                       borderColor: theme.palette.primary.main,
                       color: theme.palette.primary.main,
+                      transform: "translateY(-2px)",
                     },
                   }}
                 >
@@ -207,42 +255,64 @@ export default function Navbar() {
               <Button
                 variant="outlined"
                 color="primary"
-                size="small"
-                sx={{ px: 2.5, py: 1, fontSize: "0.875rem" }}
+                component={Link}
+                href={`/${locale}/auth/login`}
+                sx={{
+                  px: 3,
+                  py: 1,
+                  fontSize: "0.9rem",
+                  borderRadius: "10px",
+                  borderWidth: "1.5px",
+                  "&:hover": { borderWidth: "1.5px" },
+                }}
               >
                 {t("login")}
               </Button>
               <Button
                 variant="contained"
                 color="primary"
-                size="small"
-                onClick={() => scrollToSection("#contact")}
-                sx={{ px: 2.5, py: 1, fontSize: "0.875rem" }}
+                component={Link}
+                href={`/${locale}/auth/register`}
+                sx={{
+                  px: 3,
+                  py: 1,
+                  fontSize: "0.9rem",
+                  borderRadius: "10px",
+                  boxShadow: theme.shadows[4],
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: theme.shadows[6],
+                  },
+                }}
               >
                 {t("startLearning")}
               </Button>
             </Box>
 
             {/* Mobile Icons */}
-            <Box sx={{ display: { xs: "flex", lg: "none" }, gap: 0.5 }}>
+            <Box
+              sx={{
+                display: { xs: "flex", lg: "none" },
+                gap: 1,
+                alignItems: "center",
+              }}
+            >
               {mounted && (
                 <IconButton onClick={toggleTheme} size="small" color="inherit">
-                  {isDark ? (
-                    <LightModeIcon fontSize="small" />
-                  ) : (
-                    <DarkModeIcon fontSize="small" />
-                  )}
+                  {isDark ? <LightModeIcon /> : <DarkModeIcon />}
                 </IconButton>
               )}
               <IconButton onClick={switchLocale} size="small" color="inherit">
-                <LanguageIcon fontSize="small" />
+                <LanguageIcon />
               </IconButton>
               <IconButton
                 onClick={() => setMobileOpen(true)}
                 size="small"
                 color="inherit"
+                sx={{ ml: 1 }}
               >
-                <MenuIcon />
+                <MenuIcon fontSize="large" />
               </IconButton>
             </Box>
           </Toolbar>
@@ -256,10 +326,14 @@ export default function Navbar() {
         onClose={() => setMobileOpen(false)}
         PaperProps={{
           sx: {
-            width: 300,
+            width: 320,
             background: theme.palette.background.paper,
             px: 2,
             py: 3,
+            borderTopLeftRadius: isRtl ? 0 : 20,
+            borderBottomLeftRadius: isRtl ? 0 : 20,
+            borderTopRightRadius: isRtl ? 20 : 0,
+            borderBottomRightRadius: isRtl ? 20 : 0,
           },
         }}
       >
@@ -268,48 +342,72 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            mb: 2,
+            mb: 3,
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Image
-              src="/images/tibyan.png"
-              alt="Tibyan Logo"
-              width={44}
-              height={44}
-              style={{ objectFit: "contain" }}
-            />
-          </Box>
-          <IconButton onClick={() => setMobileOpen(false)} size="small">
+          <Image
+            src="/images/tibyan-logo.jpg"
+            alt="Tibyan Logo"
+            width={50}
+            height={50}
+            style={{ objectFit: "contain" }}
+          />
+          <IconButton
+            onClick={() => setMobileOpen(false)}
+            sx={{ backgroundColor: theme.palette.action.hover }}
+          >
             <CloseIcon />
           </IconButton>
         </Box>
-        <Divider sx={{ mb: 2 }} />
+        <Divider sx={{ mb: 2, borderStyle: "dashed" }} />
         <List disablePadding>
           {navLinks.map((link) => (
             <ListItem key={link.key} disablePadding>
               <ListItemButton
                 onClick={() => scrollToSection(link.href)}
-                sx={{ borderRadius: 2, mb: 0.5 }}
+                sx={{
+                  borderRadius: 2,
+                  mb: 1,
+                  transition: "all 0.2s",
+                  "&:hover": {
+                    backgroundColor: theme.palette.primary.light,
+                    color: theme.palette.primary.contrastText,
+                    transform: "translateX(5px)",
+                  },
+                }}
               >
                 <ListItemText
                   primary={t(link.key as Parameters<typeof t>[0])}
-                  primaryTypographyProps={{ fontWeight: 500 }}
+                  primaryTypographyProps={{
+                    fontWeight: 600,
+                    fontSize: "1.05rem",
+                  }}
                 />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        <Divider sx={{ my: 2 }} />
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-          <Button variant="outlined" color="primary" fullWidth>
+        <Divider sx={{ my: 3, borderStyle: "dashed" }} />
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            fullWidth
+            component={Link}
+            href={`/${locale}/auth/login`}
+            sx={{ borderRadius: "10px", borderWidth: "2px" }}
+          >
             {t("login")}
           </Button>
           <Button
             variant="contained"
             color="primary"
+            size="large"
             fullWidth
-            onClick={() => scrollToSection("#contact")}
+            component={Link}
+            href={`/${locale}/auth/register`}
+            sx={{ borderRadius: "10px", py: 1.5 }}
           >
             {t("startLearning")}
           </Button>

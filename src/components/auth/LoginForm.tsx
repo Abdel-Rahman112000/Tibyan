@@ -1,0 +1,368 @@
+"use client";
+
+import * as React from "react";
+import {
+  Alert,
+  Box,
+  Container,
+  Typography,
+  Button,
+  Divider,
+  Stack,
+  IconButton,
+  InputAdornment,
+  CircularProgress,
+} from "@mui/material";
+import { useTheme, alpha } from "@mui/material/styles";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { useLogin, useSocialAuth, createLoginSchema } from "@/lib/auth";
+import {
+  loginWithFacebook,
+  signInWithGoogle,
+  isFirebaseConfigured,
+  FACEBOOK_APP_ID,
+} from "@/lib/auth/social";
+import type { LoginFormValues } from "@/lib/auth";
+import { RADIUS } from "@/theme/spacing";
+import { AuthTextField } from "./AuthFields";
+
+export default function LoginPage({ teacherOnly = false, studentPreview = false }: { teacherOnly?: boolean; studentPreview?: boolean }) {
+  const t = useTranslations("auth");
+  const tEnrollment = useTranslations("enrollment");
+  const theme = useTheme();
+  const locale = useLocale();
+  const isRtl = locale === "ar";
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = React.useState(false);
+
+  const loginMutation = useLogin();
+  const socialMutation = useSocialAuth();
+
+  const schema = React.useMemo(() => createLoginSchema(t), [t]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { email: "", password: "" },
+  });
+
+  const onSubmit = (data: LoginFormValues) => {
+    if (teacherOnly || studentPreview) return;
+    loginMutation.mutate(data);
+  };
+
+  // Google login with Firebase
+  const handleGoogleLogin = async () => {
+    if (!isFirebaseConfigured()) {
+      toast.error("Google login is not configured");
+      return;
+    }
+
+    setIsGoogleLoading(true);
+    try {
+      const { idToken } = await signInWithGoogle();
+      socialMutation.mutate({
+        provider: "google",
+        accessToken: idToken,
+      });
+    } catch (error) {
+      console.error("Google login error:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Google login failed";
+      toast.error(t("socialLoginError") || errorMessage);
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    if (!FACEBOOK_APP_ID) {
+      toast.error("Facebook login is not configured");
+      return;
+    }
+
+    try {
+      const accessToken = await loginWithFacebook();
+      socialMutation.mutate({
+        provider: "facebook",
+        accessToken,
+      });
+    } catch (error) {
+      console.error("Facebook login error:", error);
+      toast.error(
+        t("socialLoginError") || "Facebook login failed. Please try again.",
+      );
+    }
+  };
+
+  const isLoading = loginMutation.isPending || socialMutation.isPending || isGoogleLoading;
+
+  return (
+    <Box
+      dir={isRtl ? "rtl" : "ltr"}
+      sx={{
+        minHeight: "100dvh",
+        height: "100dvh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        overflow: "hidden",
+        py: 0,
+        bgcolor: "background.default",
+        backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.07)}, transparent 60%, ${alpha(theme.palette.secondary.main, 0.06)})`,
+      }}
+    >
+      <Box
+        sx={{
+          position: "absolute",
+          top: "8%",
+          [isRtl ? "left" : "right"]: "6%",
+          width: 280,
+          height: 280,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${alpha(theme.palette.primary.main, 0.2)} 0%, transparent 72%)`,
+          filter: "blur(34px)",
+          pointerEvents: "none",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "8%",
+          [isRtl ? "right" : "left"]: "6%",
+          width: 220,
+          height: 220,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${alpha(theme.palette.secondary.main, 0.18)} 0%, transparent 72%)`,
+          filter: "blur(34px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <Container
+        maxWidth="sm"
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          py: { xs: 1.5, md: 2 },
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            maxHeight: "100%",
+            p: { xs: 2.5, sm: 3.5 },
+            borderRadius: RADIUS.xl,
+            background: alpha(theme.palette.background.paper, 0.88),
+            border: `1px solid ${alpha(theme.palette.divider, 0.9)}`,
+            boxShadow: theme.shadows[4],
+            backdropFilter: "blur(10px)",
+            overflow: "hidden",
+          }}
+        >
+          {/* Header */}
+          <Box sx={{ textAlign: isRtl ? "right" : "left", mb: 2.3 }}>
+            <Typography
+              variant="h4"
+              fontWeight={700}
+              sx={{
+                mb: 0.8,
+                color: theme.palette.text.primary,
+                fontSize: { xs: "1.65rem", md: "1.85rem" },
+              }}
+            >
+              {t("loginTitle")}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {t("loginSubtitle")}
+            </Typography>
+          </Box>
+
+          {teacherOnly && (
+            <Box sx={{ mb: 2 }}>
+              <Box sx={{ mb: 1.5, p: 1.5, borderRadius: 2, bgcolor: alpha(theme.palette.secondary.main, 0.12), color: "text.secondary", fontSize: "0.8rem", lineHeight: 1.6 }}>{tEnrollment("teacher.loginNotice")}</Box>
+              <Button component={Link} href={`/${locale}/teacher`} variant="outlined" fullWidth sx={{ borderRadius: RADIUS.medium, fontWeight: 800 }}>{tEnrollment("teacher.previewDashboard")}</Button>
+            </Box>
+          )}
+          {studentPreview && <Box sx={{ mb: 2 }}><Alert severity="info" sx={{ mb: 1.5 }}>{isRtl ? "دخول الطالب وولي الأمر يحتاج إلى باك اند وحسابات مفعّلة. يمكنك معاينة صفحة طالب افتراضي الآن؛ بيانات النموذج لن تنشئ حسابًا." : "Student and parent sign in needs a backend and active accounts. You can preview a fictional learner page now; this form will not create an account."}</Alert><Button component={Link} href={`/${locale}/student`} variant="outlined" fullWidth>{isRtl ? "معاينة صفحة الطالب" : "Preview student page"}</Button></Box>}
+
+          {/* Email/Password Form */}
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Stack spacing={2}>
+              <AuthTextField
+                label={t("email")}
+                type="email"
+                autoComplete="email"
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                disabled={isLoading || teacherOnly || studentPreview}
+                {...register("email")}
+              />
+
+              <AuthTextField
+                label={t("password")}
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                error={!!errors.password}
+                helperText={errors.password?.message}
+                disabled={isLoading || teacherOnly || studentPreview}
+                extraSlotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                          size="small"
+                        >
+                          {showPassword ? (
+                            <VisibilityOffIcon fontSize="small" />
+                          ) : (
+                            <VisibilityIcon fontSize="small" />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                {...register("password")}
+              />
+
+              {!teacherOnly && !studentPreview && <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: isRtl ? "flex-start" : "flex-end",
+                }}
+              >
+                <Link
+                  href={`/${locale}/auth/forgot-password`}
+                  style={{
+                    color: theme.palette.primary.main,
+                    fontSize: "0.85rem",
+                    textDecoration: "none",
+                    fontWeight: 500,
+                  }}
+                >
+                  {t("forgotPassword")}
+                </Link>
+              </Box>}
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                size="large"
+                disabled={teacherOnly || studentPreview || isLoading}
+                sx={{
+                  py: 1.2,
+                  borderRadius: RADIUS.medium,
+                  fontSize: "0.98rem",
+                  fontWeight: 700,
+                }}
+              >
+                {isLoading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  t("loginButton")
+                )}
+              </Button>
+
+              {!teacherOnly && !studentPreview && <><Divider sx={{ my: 0.6 }}>
+                <Typography variant="caption" color="text.secondary">
+                  {t("orContinueWith")}
+                </Typography>
+              </Divider>
+
+              <Stack direction="row" gap={2}>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  startIcon={<GoogleIcon />}
+                  onClick={handleGoogleLogin}
+                  disabled={isLoading}
+                  sx={{
+                    py: 1.05,
+                    borderRadius: RADIUS.medium,
+                    borderColor: theme.palette.divider,
+                    color: theme.palette.text.primary,
+                    fontWeight: 600,
+                    "& .MuiButton-startIcon": {
+                      mr: isRtl ? 0.5 : 0.8,
+                      ml: isRtl ? 0.8 : 0.5,
+                    },
+                    "&:hover": {
+                      borderColor: "#ea4335",
+                      bgcolor: alpha("#ea4335", 0.05),
+                    },
+                  }}
+                >
+                  Google
+                </Button>
+
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  startIcon={<FacebookIcon />}
+                  onClick={handleFacebookLogin}
+                  disabled={isLoading}
+                  sx={{
+                    py: 1.05,
+                    borderRadius: RADIUS.medium,
+                    borderColor: theme.palette.divider,
+                    color: theme.palette.text.primary,
+                    fontWeight: 600,
+                    "& .MuiButton-startIcon": {
+                      mr: isRtl ? 0.5 : 0.8,
+                      ml: isRtl ? 0.8 : 0.5,
+                    },
+                    "&:hover": {
+                      borderColor: "#1877f2",
+                      bgcolor: alpha("#1877f2", 0.05),
+                    },
+                  }}
+                >
+                  Facebook
+                </Button>
+              </Stack></>}
+            </Stack>
+          </Box>
+
+          {/* Register link */}
+          {!teacherOnly && <Typography
+            variant="body2"
+            sx={{ textAlign: "center", mt: 2.5, color: "text.secondary" }}
+          >
+            {t("noAccount")}{" "}
+            <Link
+              href={`/${locale}/auth/register`}
+              style={{
+                color: theme.palette.primary.main,
+                textDecoration: "none",
+                fontWeight: 700,
+              }}
+            >
+              {t("registerLink")}
+            </Link>
+          </Typography>}
+        </Box>
+      </Container>
+    </Box>
+  );
+}

@@ -12,7 +12,7 @@ import {
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING } from "@/theme/spacing";
 
 export default function Pricing() {
   const t = useTranslations("pricing");

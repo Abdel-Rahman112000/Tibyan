@@ -1,62 +1,45 @@
 import { createTheme, type Theme } from "@mui/material/styles";
 
-// Color palettes
-const emerald = {
-  50: "#ecfdf5",
-  100: "#d1fae5",
-  200: "#a7f3d0",
-  300: "#6ee7b7",
-  400: "#34d399",
-  500: "#10b981",
-  600: "#059669",
-  700: "#047857",
-  800: "#065f46",
-  900: "#064e3b",
-};
-
-const gold = {
-  100: "#fef9e7",
-  200: "#fef3c7",
-  300: "#fde68a",
-  400: "#fcd34d",
-  500: "#f59e0b",
-  600: "#d97706",
-  700: "#b45309",
-};
-
 // Re-export spacing constants for convenience
-export { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "./spacing";
+export {
+  SECTION_PADDING,
+  SECTION_HEADER_MB,
+  GRID_GAP,
+  CARD_PADDING,
+  RADIUS,
+} from "./spacing";
 
-export const getTheme = (mode: "light" | "dark"): Theme =>
+export const getTheme = (mode: "light" | "dark", direction: "ltr" | "rtl" = "ltr"): Theme =>
   createTheme({
+    direction,
     // Custom spacing scale (1 unit = 8px by default)
     spacing: 8,
     palette: {
       mode,
       primary: {
-        main: emerald[700],
-        light: emerald[500],
-        dark: emerald[900],
-        contrastText: "#ffffff",
+        main: mode === "light" ? "#124536" : "#8bcca6",
+        light: mode === "light" ? "#367b60" : "#b9e1c4",
+        dark: "#0b342d",
+        contrastText: mode === "light" ? "#ffffff" : "#102d25",
       },
       secondary: {
-        main: gold[500],
-        light: gold[300],
-        dark: gold[700],
-        contrastText: "#000000",
+        main: "#d5a85f",
+        light: "#f0ce90",
+        dark: "#a97634",
+        contrastText: "#173b34",
       },
       background: {
-        default: mode === "light" ? "#fafaf8" : "#0a0f0d",
-        paper: mode === "light" ? "#ffffff" : "#111a14",
+        default: mode === "light" ? "#f7f5ef" : "#0d1714",
+        paper: mode === "light" ? "#fffefa" : "#15251f",
       },
       text: {
-        primary: mode === "light" ? "#111827" : "#f9fafb",
-        secondary: mode === "light" ? "#4b5563" : "#9ca3af",
+        primary: mode === "light" ? "#173b34" : "#f0f4ed",
+        secondary: mode === "light" ? "#63766b" : "#afc0b5",
       },
-      divider: mode === "light" ? "#e5e7eb" : "#1f2d24",
+      divider: mode === "light" ? "#dce4d9" : "#30493c",
     },
     typography: {
-      fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
+      fontFamily: direction === "rtl" ? "var(--font-cairo), sans-serif" : "var(--font-inter), sans-serif",
       h1: { fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.15 },
       h2: { fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
       h3: { fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
@@ -112,6 +95,13 @@ export const getTheme = (mode: "light" | "dark"): Theme =>
       "0 0 0 transparent",
     ],
     components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          html: { scrollBehavior: "smooth" },
+          "*::-webkit-scrollbar": { width: 7 },
+          "*::-webkit-scrollbar-thumb": { backgroundColor: mode === "light" ? "#8aa99a" : "#456557", borderRadius: 5 },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {
@@ -119,20 +109,19 @@ export const getTheme = (mode: "light" | "dark"): Theme =>
             padding: "10px 24px",
             fontSize: "0.95rem",
           },
-          containedPrimary: {
-            background: `linear-gradient(135deg, ${emerald[700]}, ${emerald[600]})`,
-            boxShadow: `0 4px 14px rgba(4,120,87,0.35)`,
+          containedPrimary: ({ theme }) => ({
+            boxShadow: `0 4px 14px ${theme.palette.action.hover}`,
             "&:hover": {
-              background: `linear-gradient(135deg, ${emerald[800]}, ${emerald[700]})`,
-              boxShadow: `0 6px 20px rgba(4,120,87,0.45)`,
+              backgroundColor: theme.palette.mode === "light" ? theme.palette.primary.dark : theme.palette.primary.light,
+              boxShadow: `0 6px 20px ${theme.palette.action.selected}`,
             },
-          },
-          outlinedPrimary: {
-            borderColor: emerald[700],
+          }),
+          outlinedPrimary: ({ theme }) => ({
+            borderColor: theme.palette.primary.main,
             "&:hover": {
-              backgroundColor: `${emerald[50]}80`,
+              backgroundColor: theme.palette.action.hover,
             },
-          },
+          }),
         },
       },
       MuiCard: {

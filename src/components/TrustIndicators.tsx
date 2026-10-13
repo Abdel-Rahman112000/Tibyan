@@ -8,7 +8,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { SECTION_PADDING, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
+import { CARD_PADDING, RADIUS } from "@/theme/spacing";
 
 function useCountUp(end: number, duration = 2000, start = false) {
   const [count, setCount] = React.useState(0);

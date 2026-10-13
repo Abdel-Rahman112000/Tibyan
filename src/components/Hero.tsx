@@ -6,329 +6,384 @@ import {
   Container,
   Typography,
   Button,
-  Chip,
   Stack,
+  Chip,
+  alpha,
   useTheme,
-  Avatar,
 } from "@mui/material";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import StarIcon from "@mui/icons-material/Star";
-import VerifiedIcon from "@mui/icons-material/Verified";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import SchoolIcon from "@mui/icons-material/School";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import GroupsIcon from "@mui/icons-material/Groups";
+import PublicIcon from "@mui/icons-material/Public";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
-import { alpha } from "@mui/material/styles";
-import { GRID_GAP, RADIUS, SECTION_PADDING } from "@/theme/spacing";
-
-const AVATAR_COLORS = ["#047857", "#059669", "#0f9f6e", "#34d399"];
-
-const MOCK_STUDENTS = [
-  { color: AVATAR_COLORS[0], letter: "A" },
-  { color: AVATAR_COLORS[1], letter: "M" },
-  { color: AVATAR_COLORS[2], letter: "F" },
-  { color: AVATAR_COLORS[3], letter: "S" },
-];
+import { RADIUS } from "@/theme/spacing";
 
 export default function Hero() {
   const t = useTranslations("hero");
   const theme = useTheme();
   const locale = useLocale();
   const isRtl = locale === "ar";
-  const headline = t("headline");
-  const headlineWords = headline.split(" ");
-  const hasHighlightChunk = headlineWords.length > 4;
-  const headlineLead = hasHighlightChunk
-    ? headlineWords.slice(0, 4).join(" ")
-    : headline;
-  const headlineHighlight = hasHighlightChunk
-    ? headlineWords.slice(4).join(" ")
-    : "";
-  const stats = [t("stat1"), t("stat2"), t("stat3")];
+  const isDark = theme.palette.mode === "dark";
+  const textAlign = isRtl ? "right" : "left";
 
   return (
     <Box
       id="home"
       sx={{
-        minHeight: { xs: "100vh", md: "92vh" },
+        height: "100vh",
         display: "flex",
-        alignItems: "center",
+        flexDirection: "column",
         position: "relative",
         overflow: "hidden",
-        pt: { xs: SECTION_PADDING.xs + 2, md: SECTION_PADDING.md },
-        pb: { xs: SECTION_PADDING.xs, md: SECTION_PADDING.md },
-        background:
-          theme.palette.mode === "dark"
-            ? "linear-gradient(135deg, #0a0f0d 0%, #0d1f18 50%, #0a0f0d 100%)"
-            : "linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #fafaf8 100%)",
+        pt: { xs: 10, md: 12 },
+        pb: { xs: 2, md: 3 },
+        backgroundImage: "url(/images/hero3.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Islamic geometric background pattern */}
-      <Box
+      <Container
+        maxWidth="xl"
         sx={{
-          position: "absolute",
-          inset: 0,
-          opacity: theme.palette.mode === "dark" ? 0.03 : 0.04,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23047857' fill-opacity='1'%3E%3Cpath d='M40 0L50 10L40 20L30 10zM0 40L10 30L20 40L10 50zM80 40L70 30L60 40L70 50zM40 80L50 70L40 60L30 70zM20 20L30 10L40 20L30 30zM60 20L70 10L80 20L70 30zM20 60L30 70L40 60L30 50zM60 60L70 70L80 60L70 50z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: "80px 80px",
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+          zIndex: 1,
         }}
-      />
-
-      {/* Gradient orbs */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: "10%",
-          [isRtl ? "left" : "right"]: "5%",
-          width: 500,
-          height: 500,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${alpha(theme.palette.primary.main, 0.14)} 0%, transparent 70%)`,
-          filter: "blur(40px)",
-          pointerEvents: "none",
-        }}
-      />
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: "10%",
-          [isRtl ? "right" : "left"]: "5%",
-          width: 400,
-          height: 400,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${alpha(theme.palette.secondary.main, 0.16)} 0%, transparent 70%)`,
-          filter: "blur(40px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+      >
+        {/* Content aligned to right side */}
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: { xs: GRID_GAP.xs + 1, md: GRID_GAP.md + 1 },
+            display: "flex",
             alignItems: "center",
+            justifyContent: {
+              xs: "center",
+              md: isRtl ? "flex-start" : "flex-end",
+            },
+            flex: 1,
+            direction: isRtl ? "rtl" : "ltr",
           }}
         >
-          {/* Left Content */}
-          <Box
-            sx={{
-              maxWidth: 860,
-              mx: "auto",
-              textAlign: "center",
-              px: { xs: 1, md: 2 },
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+            <Box
+              sx={{
+                maxWidth: { xs: "100%", md: 520 },
+                textAlign,
+              }}
             >
+              {/* Trust Badge */}
               <Chip
+                icon={
+                  <AutoAwesomeIcon
+                    sx={{
+                      fontSize: 16,
+                      color: `${theme.palette.secondary.main} !important`,
+                    }}
+                  />
+                }
                 label={t("badge")}
-                icon={<VerifiedIcon sx={{ fontSize: "14px !important" }} />}
                 sx={{
-                  mb: 3,
-                  background: alpha(
-                    theme.palette.primary.main,
-                    theme.palette.mode === "dark" ? 0.24 : 0.1,
-                  ),
-                  color: theme.palette.primary.main,
-                  border: `1px solid ${alpha(theme.palette.primary.main, 0.24)}`,
-                  fontWeight: 600,
-                  fontSize: "0.8rem",
+                  mb: 2.5,
+                  px: 1,
                   py: 2.5,
+                  fontSize: "0.82rem",
+                  fontWeight: 600,
+                  borderRadius: "999px",
+                  background: alpha(
+                    theme.palette.secondary.main,
+                    isDark ? 0.08 : 0.06,
+                  ),
+                  border: `1px solid ${alpha(theme.palette.secondary.main, isDark ? 0.2 : 0.15)}`,
+                  color: isDark
+                    ? theme.palette.secondary.light
+                    : theme.palette.secondary.dark,
+                  boxShadow: `0 12px 24px ${alpha(theme.palette.secondary.main, 0.08)}`,
                   "& .MuiChip-icon": {
-                    color: theme.palette.primary.main,
-                    mr: isRtl ? 0.4 : 0.7,
-                    ml: isRtl ? 0.7 : 0.4,
+                    ml: isRtl ? 0 : 0.5,
+                    mr: isRtl ? 0.5 : 0,
                   },
                 }}
               />
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+              {/* Arabic Title */}
               <Typography
-                variant="h1"
                 sx={{
-                  fontSize: {
-                    xs: "2.4rem",
-                    sm: "3rem",
-                    md: "3.5rem",
-                    lg: "3.8rem",
-                  },
+                  fontSize: { xs: "3rem", sm: "3.6rem", md: "4.2rem" },
                   fontWeight: 800,
-                  lineHeight: 1.15,
-                  mb: 3,
-                  color: theme.palette.text.primary,
-                  letterSpacing: "-0.03em",
+                  lineHeight: 0.95,
+                  mb: 0.8,
+                  fontFamily: "'Amiri', serif",
+                  background: isDark
+                    ? `linear-gradient(135deg, ${theme.palette.primary.contrastText} 0%, ${theme.palette.primary.light} 100%)`
+                    : `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
                 }}
               >
-                {headlineLead}
-                {headlineHighlight ? " " : ""}
-                {headlineHighlight ? (
-                  <Box
-                    component="span"
-                    sx={{
-                      background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                      backgroundClip: "text",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    {headlineHighlight}
-                  </Box>
-                ) : null}
+                {t("titleAr")}
               </Typography>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
+              {/* Subtitle */}
               <Typography
-                variant="h6"
+                variant="h5"
+                sx={{
+                  fontWeight: 700,
+                  color: theme.palette.text.primary,
+                  mb: 1.5,
+                  fontSize: { xs: "1.1rem", md: "1.35rem" },
+                }}
+              >
+                {t("titleEn")}
+              </Typography>
+
+              {/* Description */}
+              <Typography
                 sx={{
                   color: theme.palette.text.secondary,
-                  mb: 4,
-                  fontWeight: 400,
-                  lineHeight: 1.7,
-                  fontSize: { xs: "1rem", md: "1.1rem" },
-                  maxWidth: 540,
-                  mx: "auto",
+                  mb: 3,
+                  lineHeight: 1.75,
+                  fontSize: { xs: "0.9rem", md: "0.95rem" },
+                  maxWidth: 440,
                 }}
               >
                 {t("subheadline")}
               </Typography>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+              {/* CTA Buttons */}
               <Stack
-                direction={{ xs: "column", sm: "row" }}
+                direction="row"
                 spacing={2}
-                sx={{ mb: 4, justifyContent: "center", alignItems: "center" }}
-                gap={2}
+                sx={{
+                  mb: 3,
+                  flexWrap: "wrap",
+                  gap: 1.5,
+                  justifyContent: { xs: "center", md: "flex-start" },
+                }}
               >
                 <Button
                   variant="contained"
-                  color="primary"
                   size="large"
                   sx={{
-                    px: 4,
-                    py: 1.6,
-                    fontSize: "1rem",
+                    px: { xs: 3.5, md: 4 },
+                    py: 1.4,
+                    fontSize: "0.95rem",
+                    fontWeight: 700,
                     borderRadius: RADIUS.medium,
-                    boxShadow: `0 8px 24px ${alpha(theme.palette.primary.main, 0.28)}`,
+                    background: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 50%, ${theme.palette.primary.light} 100%)`,
+                    color: theme.palette.primary.contrastText,
+                    boxShadow: `0 10px 28px ${alpha(theme.palette.primary.main, 0.3)}`,
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      background: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.dark} 50%, ${theme.palette.primary.main} 100%)`,
+                      boxShadow: `0 14px 36px ${alpha(theme.palette.primary.main, 0.4)}`,
+                      transform: "translateY(-2px)",
+                    },
                   }}
                 >
                   {t("ctaPrimary")}
                 </Button>
                 <Button
                   variant="outlined"
-                  color="primary"
                   size="large"
-                  startIcon={<PlayCircleIcon />}
                   sx={{
-                    px: 4,
-                    py: 1.6,
-                    fontSize: "1rem",
+                    px: { xs: 3, md: 3.5 },
+                    py: 1.4,
+                    fontSize: "0.95rem",
+                    fontWeight: 600,
                     borderRadius: RADIUS.medium,
-                    "& .MuiButton-startIcon": {
-                      mr: isRtl ? 0.25 : 1,
-                      ml: isRtl ? 1 : 0.25,
+                    borderColor: alpha(
+                      theme.palette.primary.light,
+                      isDark ? 0.3 : 0.4,
+                    ),
+                    color: isDark
+                      ? theme.palette.primary.light
+                      : theme.palette.primary.main,
+                    "&:hover": {
+                      borderColor: alpha(
+                        theme.palette.primary.light,
+                        isDark ? 0.5 : 0.6,
+                      ),
+                      background: alpha(theme.palette.primary.main, 0.04),
                     },
                   }}
                 >
                   {t("ctaSecondary")}
                 </Button>
               </Stack>
-            </motion.div>
 
-            {/* Social proof row */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
+              {/* Stats Row */}
               <Stack
-                direction={{ xs: "column", sm: "row" }}
-                sx={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 2.5,
-                  pt: 2,
-                  borderTop: `1px solid ${alpha(theme.palette.divider, 0.8)}`,
-                }}
-              >
-                <Box sx={{ display: "flex" }}>
-                  {MOCK_STUDENTS.map((s, i) => (
-                    <Avatar
-                      key={i}
-                      sx={{
-                        width: 36,
-                        height: 36,
-                        bgcolor: s.color,
-                        border: `2px solid ${theme.palette.background.default}`,
-                        [isRtl ? "mr" : "ml"]: i > 0 ? -0.75 : 0,
-                        fontSize: "0.85rem",
-                        fontWeight: 700,
-                      }}
-                    >
-                      {s.letter}
-                    </Avatar>
-                  ))}
-                </Box>
-                <Box>
+                direction="row"
+                spacing={{ xs: 2, md: 3 }}
+                divider={
                   <Box
                     sx={{
-                      display: "flex",
-                      gap: 0.5,
-                      mb: 0.8,
-                      justifyContent: "center",
+                      width: "1px",
+                      height: 32,
+                      background: theme.palette.divider,
+                      alignSelf: "center",
                     }}
+                  />
+                }
+                sx={{ justifyContent: { xs: "center", md: "flex-start" } }}
+              >
+                {[
+                  {
+                    icon: <GroupsIcon sx={{ fontSize: 20 }} />,
+                    value: "+5000",
+                    label: t("stat1"),
+                  },
+                  {
+                    icon: <PublicIcon sx={{ fontSize: 20 }} />,
+                    value: "+50",
+                    label: t("stat2"),
+                  },
+                  {
+                    icon: <SchoolIcon sx={{ fontSize: 20 }} />,
+                    value: "+200",
+                    label: t("stat3"),
+                  },
+                ].map((stat, i) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
                   >
-                    {[...Array(5)].map((_, i) => (
-                      <StarIcon
-                        key={i}
+                    <Box sx={{ textAlign }}>
+                      <Box
                         sx={{
-                          fontSize: 14,
-                          color: theme.palette.secondary.main,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: isRtl ? "flex-end" : "flex-start",
+                          gap: 0.8,
+                          mb: 0.3,
                         }}
-                      />
-                    ))}
-                  </Box>
-                  <Stack
-                    direction={{ xs: "column", sm: "row" }}
-                    spacing={1}
-                    sx={{ justifyContent: "center", alignItems: "center" }}
-                  >
-                    {stats.map((item) => (
-                      <Chip
-                        key={item}
-                        label={item}
-                        size="small"
+                      >
+                        <Box
+                          sx={{
+                            color: theme.palette.primary.main,
+                            display: "flex",
+                          }}
+                        >
+                          {stat.icon}
+                        </Box>
+                        <Typography
+                          sx={{
+                            fontSize: { xs: "1.2rem", md: "1.4rem" },
+                            fontWeight: 800,
+                            color: theme.palette.text.primary,
+                          }}
+                        >
+                          {stat.value}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        variant="caption"
                         sx={{
-                          bgcolor: alpha(theme.palette.primary.main, 0.12),
                           color: theme.palette.text.secondary,
-                          border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-                          fontWeight: 600,
+                          fontWeight: 500,
+                          fontSize: "0.72rem",
                         }}
-                      />
-                    ))}
-                  </Stack>
-                </Box>
+                      >
+                        {stat.label}
+                      </Typography>
+                    </Box>
+                  </motion.div>
+                ))}
               </Stack>
-            </motion.div>
-          </Box>
+            </Box>
+          </motion.div>
         </Box>
+
+        {/* Bottom Feature Pills */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
+        >
+          <Stack
+            direction="row"
+            spacing={1.5}
+            sx={{
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: 1.5,
+              mt: "auto",
+              pt: 2,
+            }}
+          >
+            {[
+              {
+                icon: <VideocamIcon sx={{ fontSize: 18 }} />,
+                label: t("liveClasses"),
+              },
+              {
+                icon: <SchoolIcon sx={{ fontSize: 18 }} />,
+                label: t("expertTutors"),
+              },
+              {
+                icon: <AccessTimeIcon sx={{ fontSize: 18 }} />,
+                label: t("flexibleSchedule"),
+              },
+            ].map((item) => (
+              <Box
+                key={item.label}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  px: 2,
+                  py: 1,
+                  borderRadius: "999px",
+                  background: alpha(
+                    theme.palette.primary.main,
+                    isDark ? 0.04 : 0.05,
+                  ),
+                  border: `1px solid ${alpha(theme.palette.primary.main, isDark ? 0.08 : 0.1)}`,
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    background: alpha(
+                      theme.palette.primary.main,
+                      isDark ? 0.08 : 0.08,
+                    ),
+                    transform: "translateY(-1px)",
+                  },
+                }}
+              >
+                <Box
+                  sx={{ color: theme.palette.primary.main, display: "flex" }}
+                >
+                  {item.icon}
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 600,
+                    color: theme.palette.text.primary,
+                    fontSize: "0.85rem",
+                  }}
+                >
+                  {item.label}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </motion.div>
       </Container>
     </Box>
   );
