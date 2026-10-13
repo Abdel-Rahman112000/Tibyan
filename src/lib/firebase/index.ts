@@ -1,4 +1,4 @@
-export { auth, googleProvider, isFirebaseConfigured } from "./config";
+export { getFirebaseAuth, googleProvider, isFirebaseConfigured } from "./config";
 export {
   signInWithGoogle,
   signOutUser,

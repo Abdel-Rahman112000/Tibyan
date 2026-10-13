@@ -4,7 +4,7 @@ import {
   onAuthStateChanged,
   User,
 } from "firebase/auth";
-import { auth, googleProvider } from "./config";
+import { getFirebaseAuth, googleProvider, isFirebaseConfigured } from "./config";
 
 /**
  * Sign in with Google using Firebase popup
@@ -15,7 +15,7 @@ export async function signInWithGoogle(): Promise<{
   idToken: string;
 }> {
   try {
-    const result = await signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(getFirebaseAuth(), googleProvider);
     const idToken = await result.user.getIdToken();
 
     return {
@@ -53,21 +53,26 @@ export async function signInWithGoogle(): Promise<{
  * Sign out the current user
  */
 export async function signOutUser(): Promise<void> {
-  await signOut(auth);
+  if (isFirebaseConfigured()) await signOut(getFirebaseAuth());
 }
 
 /**
  * Subscribe to auth state changes
  */
 export function onAuthChange(callback: (user: User | null) => void) {
-  return onAuthStateChanged(auth, callback);
+  if (!isFirebaseConfigured()) {
+    callback(null);
+    return () => {};
+  }
+  return onAuthStateChanged(getFirebaseAuth(), callback);
 }
 
 /**
  * Get the current user's ID token (for backend authentication)
  */
 export async function getIdToken(): Promise<string | null> {
-  const user = auth.currentUser;
+  if (!isFirebaseConfigured()) return null;
+  const user = getFirebaseAuth().currentUser;
   if (!user) return null;
   return user.getIdToken();
 }

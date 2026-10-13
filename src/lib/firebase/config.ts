@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, type Auth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,24 +11,27 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase (avoid re-initializing in hot reload)
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+export const isFirebaseConfigured = () => Boolean(
+  firebaseConfig.apiKey && firebaseConfig.authDomain && firebaseConfig.projectId,
+);
 
-// Initialize Firebase Auth
-export const auth = getAuth(app);
+let cachedAuth: Auth | undefined;
 
-// Google Auth Provider with custom scopes
+// Initialize only when Google sign-in is used. Missing deployment settings must
+// not crash unrelated pages while their modules are loading.
+export function getFirebaseAuth(): Auth {
+  if (!isFirebaseConfigured()) {
+    throw new Error("Google login is not configured");
+  }
+
+  if (!cachedAuth) {
+    const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+    cachedAuth = getAuth(app);
+  }
+
+  return cachedAuth;
+}
+
 export const googleProvider = new GoogleAuthProvider();
 googleProvider.addScope("email");
 googleProvider.addScope("profile");
-
-// Helper to check if Firebase is configured
-export const isFirebaseConfigured = () => {
-  return Boolean(
-    process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
-      process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN &&
-      process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
-  );
-};
-
-export default app;
