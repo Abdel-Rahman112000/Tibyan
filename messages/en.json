@@ -1,4 +1,67 @@
 {
+  "teacherDemo": {
+    "brand": "Tibyan", "workspace": "Teacher workspace", "preview": "Demo preview", "back": "Back to role selection", "teacherLabel": "Preview teacher", "timezone": "Cairo time", "notice": "This is a demo workspace. Availability is saved in this browser only; there are no real students or lessons.",
+    "tabs": { "overview": "Overview", "schedule": "Schedule", "availability": "Availability" },
+    "overview": { "title": "Welcome to your workspace", "subtitle": "View your schedule and set times an admin can assign learners to.", "students": "Preview learners", "sessions": "Recorded lessons", "slots": "Weekly open slots", "nextTitle": "Upcoming lessons", "empty": "Confirmed lessons will appear here after the booking system is connected.", "flowTitle": "How the flow works", "flow1": "Set your availability", "flow2": "A learner requests a program and preferred time", "flow3": "An admin reviews the request and assigns a teacher", "flow4": "Record recitation, grade, and the next step" },
+    "schedule": { "title": "Your weekly schedule", "subtitle": "Your open times for admin assignment, with no real bookings yet.", "emptyDay": "No open times", "noBooking": "No confirmed lessons yet", "edit": "Edit availability" },
+    "availability": { "title": "Availability", "subtitle": "Add 30-minute slots for admin assignment.", "day": "Day", "time": "Time", "add": "Add slot", "reset": "Restore original times", "empty": "No times on this day.", "saved": "Demo change saved in this browser.", "duplicate": "This time is already available.", "hint": "A learner requests one weekly hour on one day or half an hour on two days. An admin assigns a teacher and confirms the time after review." },
+    "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  },
+  "enrollment": {
+    "brand": "Tibyan", "backHome": "Back to home", "changeRole": "Change role", "back": "Back", "next": "Next", "stepLabel": "Step {current} of {total}", "demoNotice": "Demo only — teachers and times are examples. Your details are not sent anywhere.",
+    "role": { "eyebrow": "Welcome to Tibyan", "title": "How would you like to begin?", "description": "Choose a role to continue.", "student": "I am a student", "studentDescription": "Choose a program and preferred weekly time.", "teacher": "I am a teacher", "teacherDescription": "See the teacher workspace and schedule.", "demoNotice": "Demo preview with no real bookings or accounts." },
+    "sidebar": { "eyebrow": "Demo enrollment", "title": "A simple start", "description": "Choose a program, teacher, and time." },
+    "progress": { "program": "Program", "teacher": "Teacher", "schedule": "Schedule", "details": "Details" },
+    "program": {
+      "title": "What would you like to study?", "subtitle": "Choose one path that fits your current goal.",
+      "reading": { "name": "Confident reading", "description": "Start reading and improve pronunciation." },
+      "tajweed": { "name": "Tajweed & recitation", "description": "Apply rules and improve recitation." },
+      "memorization": { "name": "Memorization & review", "description": "Memorize and review regularly." }
+    },
+    "teacher": { "title": "Choose a teacher", "subtitle": "Your teacher choice determines the times shown in the next step.", "demoNotice": "These teacher names and times are examples, not real bookings.", "demoTag": "Demo profile", "loginNotice": "Teacher sign-in needs accounts and a backend. You can preview the teacher workspace and try setting availability now.", "previewDashboard": "Preview teacher workspace" },
+    "schedule": { "title": "Choose your weekly hour", "subtitle": "Pick two 30-minute slots, either consecutively on one day or across two days.", "teacherChoices": "Choose a teacher to see available times", "teacherLabel": "Teacher:", "timezone": "Times shown in Cairo time", "calendarLabel": "Available days over the next seven days", "available": "Available", "unavailable": "Unavailable", "chooseDay": "Choose an available day", "rule": "If you choose two slots on the same day, they must be consecutive.", "selected": "Selected: {count} of 2", "empty": "No slots selected yet." },
+    "details": { "title": "Your contact details", "subtitle": "Review your program, teacher, and times, then enter your basic details.", "summary": "Your selection", "firstName": "First name", "lastName": "Last name", "phone": "Mobile number", "privacy": "In this demo, your details are neither saved nor sent to our team.", "nameError": "Enter a first and last name with at least two characters each.", "phoneError": "Enter a valid mobile number with 8 to 15 digits; a country code is optional.", "submit": "Finish demo enrollment" },
+    "success": { "eyebrow": "Demo enrollment complete", "title": "Registration successful", "subtitle": "You will be contacted about payment and account activation when the real system is live.", "demoNotice": "This is only a preview of the final message. No request or time slot was saved, and your details were not sent. The step will become a real request once the backend and dashboard are connected.", "summary": "Your demo request" }
+  },
+  "landing": {
+    "brand": { "name": "Tibyan", "tagline": "Learn Quran online", "homeLabel": "Tibyan home" },
+    "nav": { "label": "Page links", "about": "About", "programs": "Programs", "journey": "How it works", "faq": "FAQ" },
+    "actions": { "language": "Switch to Arabic", "theme": "Change appearance", "login": "Log in", "register": "Get started", "openMenu": "Open menu", "closeMenu": "Close menu" },
+    "hero": {
+      "eyebrow": "A new place to learn Quran", "titleFirst": "Your Quran journey", "titleAccent": "starts with one clear step.",
+      "description": "Reading, recitation, and memorization in one-to-one sessions at a time that suits you.",
+      "primary": "Get started", "secondary": "Explore programs", "note": "A simple step from your current level.", "highlights": { "personal": "One-to-one learning", "programs": "3 learning paths", "schedule": "A time that suits you" },
+      "imageAlt": "A teacher and child reading Quran together", "imageNote": "Learn steadily, at your own pace", "foot": "Quran learning shaped around you"
+    },
+    "about": { "kicker": "About Tibyan", "title": "A simple beginning. A meaningful goal.", "description": "Tibyan is a new learning project built to make starting Quran study feel clearer and more comfortable. We focus on each learner's needs and believe that small, steady steps are easier to keep than an overwhelming plan.", "link": "See how to begin" },
+    "benefits": {
+      "personal": { "title": "One-to-one learning", "description": "Room to learn, ask, and correct your recitation at your own level, away from the pace of a crowded class." },
+      "progress": { "title": "Steady progress", "description": "Begin with the foundations you need and build on them gradually, without rushing." },
+      "schedule": { "title": "A workable time", "description": "Request one weekly hour on one day, or half an hour on two separate days." }
+    },
+    "programs": {
+      "kicker": "Learning paths", "title": "Choose a place to begin.", "description": "Three clear paths. The right one can be shaped around your level and goal.", "next": "How to begin",
+      "reading": { "audience": "For beginners", "title": "Confident reading", "description": "Move from letters and pronunciation to reading verses with care and confidence." },
+      "tajweed": { "audience": "For better recitation", "title": "Tajweed & recitation", "description": "Understand essential rules and practice applying them as you read." },
+      "memorization": { "audience": "For those memorizing", "title": "Memorization & review", "description": "Break memorization into manageable steps with regular time to review and retain." }
+    },
+    "journey": {
+      "kicker": "How to begin", "title": "A clear path from the first step.", "description": "Choose a path and preferred time, then enter your details. An admin reviews your request and assigns a teacher before confirming the time.", "cta": "Preview enrollment",
+      "account": { "title": "Choose a program", "description": "Reading, tajweed, or memorization and review." },
+      "goal": { "title": "Choose a preferred time", "description": "Request a weekly hour on one day or half an hour on two separate days." },
+      "start": { "title": "Share your details", "description": "Leave your name and number so we can follow up later." }
+    },
+    "pricing": { "kicker": "Plans & pricing", "title": "A plan discussed with you.", "description": "We explain the cost of your weekly learning hour and payment steps before activating your account.", "link": "Preview enrollment" },
+    "faq": {
+      "kicker": "Frequently asked", "title": "Have a question?", "description": "Short answers to help you take the first step.",
+      "beginner": { "question": "Can I start from the beginning?", "answer": "Yes. The path starts from your current level, whether you are learning letters or improving your recitation." },
+      "age": { "question": "Are the programs for adults or children?", "answer": "Adults and children can learn. The approach is shaped around age and level before lessons begin." },
+      "schedule": { "question": "How are session times set?", "answer": "Request a weekly hour that suits you, together on one day or split across two days. An admin checks teacher availability, contacts you if the time needs to change, then confirms it." },
+      "pricing": { "question": "Are prices fixed yet?", "answer": "Program cost and length are explained before you begin, based on the sessions and arrangement agreed upon." }
+    },
+    "final": { "kicker": "Begin today", "title": "Bring your first step with Quran closer.", "description": "Choose your program and times, then enter your details so we can plan the next step.", "button": "Preview enrollment" },
+    "footer": { "description": "Learn Quran step by step in a calm space that respects your level and your time.", "linksLabel": "Quick links", "rights": "All rights reserved.", "closing": "A good beginning, one step at a time." }
+  },
   "nav": {
     "home": "Home",
     "programs": "Programs",

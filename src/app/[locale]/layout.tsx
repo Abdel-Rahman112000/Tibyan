@@ -20,9 +20,9 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "Tibyan | تبيان — Online Quran Academy",
+  title: "Tibyan | تبيان — Learn Quran Online",
   description:
-    "Memorize the Quran online with certified expert teachers. Flexible schedules, personalized learning, and proven results.",
+    "One-to-one online Quran learning in reading, tajweed, and memorization. تعلّم القرآن خطوة بخطوة بما يناسب مستواك ووقتك.",
 };
 
 export default async function LocaleLayout({
@@ -45,13 +45,6 @@ export default async function LocaleLayout({
     <html lang={locale} dir={isRtl ? "rtl" : "ltr"} suppressHydrationWarning>
       <body
         className={`${inter.variable} ${cairo.variable}`}
-        style={{
-          fontFamily: isRtl
-            ? "var(--font-cairo), sans-serif"
-            : "var(--font-inter), sans-serif",
-          margin: 0,
-          padding: 0,
-        }}
       >
         <NextIntlClientProvider messages={messages}>
           <Providers>{children}</Providers>

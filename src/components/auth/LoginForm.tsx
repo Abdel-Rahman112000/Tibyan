@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  Alert,
   Box,
   Container,
   Typography,
@@ -33,8 +34,9 @@ import type { LoginFormValues } from "@/lib/auth";
 import { RADIUS } from "@/theme/spacing";
 import { AuthTextField } from "./AuthFields";
 
-export default function LoginPage() {
+export default function LoginPage({ teacherOnly = false, studentPreview = false }: { teacherOnly?: boolean; studentPreview?: boolean }) {
   const t = useTranslations("auth");
+  const tEnrollment = useTranslations("enrollment");
   const theme = useTheme();
   const locale = useLocale();
   const isRtl = locale === "ar";
@@ -56,6 +58,7 @@ export default function LoginPage() {
   });
 
   const onSubmit = (data: LoginFormValues) => {
+    if (teacherOnly || studentPreview) return;
     loginMutation.mutate(data);
   };
 
@@ -117,10 +120,8 @@ export default function LoginPage() {
         position: "relative",
         overflow: "hidden",
         py: 0,
-        background:
-          theme.palette.mode === "dark"
-            ? "linear-gradient(135deg, #0a0f0d 0%, #0d1f18 50%, #0a0f0d 100%)"
-            : "linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #fafaf8 100%)",
+        bgcolor: "background.default",
+        backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.07)}, transparent 60%, ${alpha(theme.palette.secondary.main, 0.06)})`,
       }}
     >
       <Box
@@ -193,6 +194,14 @@ export default function LoginPage() {
             </Typography>
           </Box>
 
+          {teacherOnly && (
+            <Box sx={{ mb: 2 }}>
+              <Box sx={{ mb: 1.5, p: 1.5, borderRadius: 2, bgcolor: alpha(theme.palette.secondary.main, 0.12), color: "text.secondary", fontSize: "0.8rem", lineHeight: 1.6 }}>{tEnrollment("teacher.loginNotice")}</Box>
+              <Button component={Link} href={`/${locale}/teacher`} variant="outlined" fullWidth sx={{ borderRadius: RADIUS.medium, fontWeight: 800 }}>{tEnrollment("teacher.previewDashboard")}</Button>
+            </Box>
+          )}
+          {studentPreview && <Box sx={{ mb: 2 }}><Alert severity="info" sx={{ mb: 1.5 }}>{isRtl ? "دخول الطالب وولي الأمر يحتاج إلى باك اند وحسابات مفعّلة. يمكنك معاينة صفحة طالب افتراضي الآن؛ بيانات النموذج لن تنشئ حسابًا." : "Student and parent sign in needs a backend and active accounts. You can preview a fictional learner page now; this form will not create an account."}</Alert><Button component={Link} href={`/${locale}/student`} variant="outlined" fullWidth>{isRtl ? "معاينة صفحة الطالب" : "Preview student page"}</Button></Box>}
+
           {/* Email/Password Form */}
           <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
             <Stack spacing={2}>
@@ -202,7 +211,7 @@ export default function LoginPage() {
                 autoComplete="email"
                 error={!!errors.email}
                 helperText={errors.email?.message}
-                disabled={isLoading}
+                disabled={isLoading || teacherOnly || studentPreview}
                 {...register("email")}
               />
 
@@ -212,7 +221,7 @@ export default function LoginPage() {
                 autoComplete="current-password"
                 error={!!errors.password}
                 helperText={errors.password?.message}
-                disabled={isLoading}
+                disabled={isLoading || teacherOnly || studentPreview}
                 extraSlotProps={{
                   input: {
                     endAdornment: (
@@ -235,7 +244,7 @@ export default function LoginPage() {
                 {...register("password")}
               />
 
-              <Box
+              {!teacherOnly && !studentPreview && <Box
                 sx={{
                   display: "flex",
                   justifyContent: isRtl ? "flex-start" : "flex-end",
@@ -252,7 +261,7 @@ export default function LoginPage() {
                 >
                   {t("forgotPassword")}
                 </Link>
-              </Box>
+              </Box>}
 
               <Button
                 type="submit"
@@ -260,7 +269,7 @@ export default function LoginPage() {
                 variant="contained"
                 color="primary"
                 size="large"
-                disabled={isLoading}
+                disabled={teacherOnly || studentPreview || isLoading}
                 sx={{
                   py: 1.2,
                   borderRadius: RADIUS.medium,
@@ -275,7 +284,7 @@ export default function LoginPage() {
                 )}
               </Button>
 
-              <Divider sx={{ my: 0.6 }}>
+              {!teacherOnly && !studentPreview && <><Divider sx={{ my: 0.6 }}>
                 <Typography variant="caption" color="text.secondary">
                   {t("orContinueWith")}
                 </Typography>
@@ -331,12 +340,12 @@ export default function LoginPage() {
                 >
                   Facebook
                 </Button>
-              </Stack>
+              </Stack></>}
             </Stack>
           </Box>
 
           {/* Register link */}
-          <Typography
+          {!teacherOnly && <Typography
             variant="body2"
             sx={{ textAlign: "center", mt: 2.5, color: "text.secondary" }}
           >
@@ -351,7 +360,7 @@ export default function LoginPage() {
             >
               {t("registerLink")}
             </Link>
-          </Typography>
+          </Typography>}
         </Box>
       </Container>
     </Box>

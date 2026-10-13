@@ -21,8 +21,7 @@ export default function ThemeRegistry({
   }, []);
 
   const mode = mounted && resolvedTheme === "dark" ? "dark" : "light";
-  const direction = locale === "ar" ? "rtl" : "ltr";
-  const theme = getTheme(mode, direction, locale);
+  const theme = React.useMemo(() => getTheme(mode, locale === "ar" ? "rtl" : "ltr"), [mode, locale]);
 
   return (
     <ThemeProvider theme={theme}>

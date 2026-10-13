@@ -15,7 +15,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { SECTION_PADDING, SECTION_HEADER_MB, CARD_PADDING, RADIUS } from "@/theme/spacing";
+import { SECTION_PADDING, SECTION_HEADER_MB, RADIUS } from "@/theme/spacing";
 
 export default function FAQ() {
   const t = useTranslations("faq");

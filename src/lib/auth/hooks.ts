@@ -46,7 +46,7 @@ export function useLogin() {
       storeTokens(tokens.accessToken, tokens.refreshToken);
       queryClient.setQueryData(AUTH_USER_KEY, user);
       toast.success(response.message || "Login successful!");
-      router.push(`/${locale}`);
+      router.push(user.role === "student" || user.role === "parent" ? `/${locale}/student` : `/${locale}`);
     },
     onError: (error: AxiosError<ApiError>) => {
       const message =

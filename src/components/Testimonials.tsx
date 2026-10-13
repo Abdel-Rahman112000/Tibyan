@@ -17,7 +17,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
-import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP } from "@/theme/spacing";
 
 const testimonials = [
   {

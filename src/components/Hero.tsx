@@ -40,7 +40,7 @@ export default function Hero() {
         overflow: "hidden",
         pt: { xs: 10, md: 12 },
         pb: { xs: 2, md: 3 },
-        backgroundImage: "url(/images/hero3.png  )",
+        backgroundImage: "url(/images/hero3.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

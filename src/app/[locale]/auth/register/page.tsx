@@ -1,5 +1,6 @@
-import { RegisterForm } from "@/components/auth/RegisterForm";
+import { redirect } from "next/navigation";
 
-export default function RegisterPage() {
-  return <RegisterForm />;
+export default async function RegisterPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect(`/${locale}/auth/login`);
 }

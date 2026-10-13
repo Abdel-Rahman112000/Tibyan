@@ -13,7 +13,7 @@ import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import PublicIcon from "@mui/icons-material/Public";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, CARD_PADDING, RADIUS } from "@/theme/spacing";
+import { SECTION_PADDING, SECTION_HEADER_MB, GRID_GAP, RADIUS } from "@/theme/spacing";
 
 const students = [
   { name: "Abdullah Rahman", country: "Egypt", flag: "🇪🇬", surah: "Al-Fatiha", color: "#047857", letter: "A" },

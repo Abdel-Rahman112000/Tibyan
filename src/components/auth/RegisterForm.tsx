@@ -109,10 +109,8 @@ export function RegisterForm() {
         position: "relative",
         overflow: "hidden",
         py: { xs: 3, md: 4 },
-        background:
-          theme.palette.mode === "dark"
-            ? "linear-gradient(135deg, #0a0f0d 0%, #0d1f18 50%, #0a0f0d 100%)"
-            : "linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #fafaf8 100%)",
+        bgcolor: "background.default",
+        backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.07)}, transparent 55%, ${alpha(theme.palette.secondary.main, 0.06)})`,
       }}
     >
       {/* Decorative circles */}

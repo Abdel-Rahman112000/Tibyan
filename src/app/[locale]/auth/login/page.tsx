@@ -1,5 +1,5 @@
-import LoginForm from "@/components/auth/LoginForm";
+import RoleSelection from "@/components/enrollment/RoleSelection";
 
 export default function LoginPage() {
-  return <LoginForm />;
+  return <RoleSelection />;
 }
