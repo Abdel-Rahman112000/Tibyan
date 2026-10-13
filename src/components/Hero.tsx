@@ -17,7 +17,6 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PublicIcon from "@mui/icons-material/Public";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { RADIUS } from "@/theme/spacing";
@@ -41,42 +40,12 @@ export default function Hero() {
         overflow: "hidden",
         pt: { xs: 10, md: 12 },
         pb: { xs: 2, md: 3 },
-        background: isDark
-          ? `radial-gradient(circle at 18% 38%, ${alpha(theme.palette.primary.main, 0.1)} 0%, transparent 26%), radial-gradient(circle at 48% 88%, ${alpha(theme.palette.secondary.main, 0.08)} 0%, transparent 28%), linear-gradient(180deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`
-          : `radial-gradient(circle at 18% 38%, ${alpha(theme.palette.primary.main, 0.06)} 0%, transparent 24%), radial-gradient(circle at 48% 88%, ${alpha(theme.palette.secondary.main, 0.05)} 0%, transparent 28%), linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`,
+        backgroundImage: "url(/images/hero3.png  )",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Ambient glow */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: { xs: -120, md: -140 },
-          [isRtl ? "left" : "right"]: { xs: -110, md: -70 },
-          width: { xs: 340, md: 520 },
-          height: { xs: 340, md: 520 },
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${alpha(theme.palette.primary.main, isDark ? 0.12 : 0.07)} 0%, transparent 70%)`,
-          filter: "blur(70px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Bottom glow */}
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: { xs: -70, md: -90 },
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: { xs: 440, md: 880 },
-          height: { xs: 240, md: 360 },
-          borderRadius: "50%",
-          background: `radial-gradient(ellipse, ${alpha(theme.palette.secondary.main, isDark ? 0.14 : 0.08)} 0%, transparent 70%)`,
-          filter: "blur(50px)",
-          pointerEvents: "none",
-        }}
-      />
-
       <Container
         maxWidth="xl"
         sx={{
@@ -87,18 +56,19 @@ export default function Hero() {
           zIndex: 1,
         }}
       >
-        {/* Three-column layout: Family | Ornament | Content */}
+        {/* Content aligned to right side */}
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "1.2fr 0.8fr 1.4fr" },
+            display: "flex",
             alignItems: "center",
+            justifyContent: {
+              xs: "center",
+              md: isRtl ? "flex-start" : "flex-end",
+            },
             flex: 1,
             direction: isRtl ? "rtl" : "ltr",
           }}
         >
-          {" "}
-          {/* RIGHT: Text Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -110,9 +80,7 @@ export default function Hero() {
           >
             <Box
               sx={{
-                maxWidth: { md: 480 },
-                mx: { xs: "auto", md: 0 },
-                [isRtl ? "mr" : "ml"]: { md: "auto" },
+                maxWidth: { xs: "100%", md: 520 },
                 textAlign,
               }}
             >
@@ -203,10 +171,7 @@ export default function Hero() {
                   mb: 3,
                   flexWrap: "wrap",
                   gap: 1.5,
-                  justifyContent: {
-                    xs: "center",
-                    md: "flex-start",
-                  },
+                  justifyContent: { xs: "center", md: "flex-start" },
                 }}
               >
                 <Button
@@ -274,12 +239,7 @@ export default function Hero() {
                     }}
                   />
                 }
-                sx={{
-                  justifyContent: {
-                    xs: "center",
-                    md: "flex-start",
-                  },
-                }}
+                sx={{ justifyContent: { xs: "center", md: "flex-start" } }}
               >
                 {[
                   {
@@ -346,69 +306,6 @@ export default function Hero() {
                   </motion.div>
                 ))}
               </Stack>
-            </Box>
-          </motion.div>
-          {/* CENTER: Ornament */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-            style={{
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Box
-              sx={{
-                position: "relative",
-                width: { xs: 200, md: "100%" },
-                height: { xs: 300, md: "100%" },
-                maxWidth: { md: 600 },
-              }}
-            >
-              <Image
-                src="/images/center-image.png"
-                alt=""
-                fill
-                style={{ objectFit: "contain" }}
-              />
-            </Box>
-          </motion.div>
-          {/* LEFT: Family Image */}
-          <motion.div
-            initial={{ opacity: 0, x: isRtl ? 30 : -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.9,
-              delay: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            style={{
-              height: "100%",
-              display: "flex",
-              alignItems: "flex-start",
-            }}
-          >
-            <Box
-              sx={{
-                position: "relative",
-                width: "100%",
-                height: { xs: 320, md: "80%" },
-                [isRtl ? "ml" : "mr"]: { md: -3 },
-              }}
-            >
-              <Image
-                src="/images/image-family.png"
-                alt="Children learning Quran"
-                fill
-                style={{
-                  objectFit: "contain",
-                  objectPosition: isRtl ? "right bottom" : "left bottom",
-                }}
-                priority
-              />
             </Box>
           </motion.div>
         </Box>
